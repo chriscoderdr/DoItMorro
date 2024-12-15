@@ -1,8 +1,6 @@
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import { getLocales } from "expo-localization";
@@ -15,15 +13,12 @@ import { DoItMorroTheme } from "@/theming";
 import { IntlProvider } from "react-intl";
 import enMessages from "@/i18n/en.json";
 import esMessages from "@/i18n/es.json";
+import { firebaseAuthStateListener, firebaseService } from "@/services/firebase";
+import { AppNavigator } from "@/navigation";
+import { LoadingScreen } from "@/components/common";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-const LoadingScreen = () => (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-    </View>
-);
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
@@ -61,6 +56,7 @@ export default function RootLayout() {
             // Mark all resources as loaded
             setAllLoaded(true);
             SplashScreen.hideAsync();
+            firebaseService.auth.onAuthStateChanged(firebaseAuthStateListener);
         };
 
         loadResources();
@@ -75,12 +71,7 @@ export default function RootLayout() {
             <PersistGate loading={<LoadingScreen />} persistor={persistor}>
                 <IntlProvider locale={locale} messages={currentMessages}>
                     <ThemeProvider value={DoItMorroTheme}>
-                        <Stack initialRouteName="login">
-                            <Stack.Screen name="login" options={{ headerShown: false }} />
-                            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                            <Stack.Screen name="+not-found" />
-                        </Stack>
-                        <StatusBar style="auto" />
+                        <AppNavigator />
                     </ThemeProvider>
                 </IntlProvider>
             </PersistGate>

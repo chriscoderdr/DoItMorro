@@ -1,11 +1,11 @@
 import { createAction } from "@reduxjs/toolkit";
 import { User } from "./types";
 
-const setUserAction = createAction<User | null>("auth/setUser");
-const logoutAction = createAction("auth/clearUser");
+const loginUserAction = createAction<User | null>("auth/loginUser");
+const logoutAction = createAction("auth/logoutUser");
 
 const authActions = {
-    setUserAction,
+    loginUserAction,
     logoutAction,
 };
 

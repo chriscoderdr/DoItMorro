@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Keyboard, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store/root-reducer";
+import { loginFormActions } from "@/state/forms/login-form/actions";
+import { loginAsyncThunk } from "@/state/forms/login-form/thunks";
 
-import { validators } from "@/utils/validators";
 import { getLoginFormStyles } from "./styles";
 import { ILoginFormProps } from "./props";
 import { InputTextField } from "@/components";
@@ -12,72 +13,66 @@ import { SocialLogin } from "../social-login";
 import { ScrollableFormContainer } from "@/components/forms/scrollable-form-container";
 import { ThemedText } from "@/components/common";
 import { useTheme } from "@react-navigation/native";
-import { useRetryCountdown } from "@/hooks/use-retry-countdown";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
+import { useAppDispatch } from "@/hooks/use-app-dispatch";
 
-const LoginForm = ({ loginUser, isLoading, onGoToRegister }: ILoginFormProps) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const [emailError, setEmailError] = useState<string | undefined>(undefined);
-    const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
-
-    const nextAllowedAttempt = useSelector((state: RootState) => state.auth.nextAllowedAttempt);
+const LoginForm = ({ onGoToRegister }: ILoginFormProps) => {
+    const dispatch = useAppDispatch();
+    const { email, password, emailError, passwordError, isLoading, nextAllowedAttempt, error } =
+        useSelector((state: RootState) => state.loginForm);
 
     const theme = useTheme();
     const styles = getLoginFormStyles({ theme });
+    const intl = useIntl();
 
-    const { countdown, isDisabled } = useRetryCountdown(nextAllowedAttempt);
+    // Countdown state for dynamic updates
+    const [countdown, setCountdown] = useState<number>(
+        Math.max(0, Math.ceil((nextAllowedAttempt - Date.now()) / 1000)),
+    );
 
-    const handleLogin = async () => {
-        let isValid = true;
+    // Update the countdown every second
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const remaining = Math.max(0, Math.ceil((nextAllowedAttempt - Date.now()) / 1000));
+            setCountdown(remaining);
+        }, 1000);
 
-        if (!validators.isValidEmail(email)) {
-            setEmailError("Please enter a valid email address");
-            isValid = false;
-        } else {
-            setEmailError(undefined);
-        }
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, [nextAllowedAttempt]);
 
-        if (!validators.isValidPassword(password)) {
-            setPasswordError("Password must be at least 8 characters");
-            isValid = false;
-        } else {
-            setPasswordError(undefined);
-        }
-
-        if (isValid) {
-            // Login action goes here
-        }
-    };
+    const isDisabled = isLoading || countdown > 0;
 
     const handleEmailChange = (text: string) => {
-        setEmail(text);
-        const validation = validators.isValidEmailWithMessage(text);
-        setEmailError(validation.valid ? undefined : validation.error);
+        dispatch(loginFormActions.setEmailAction(text));
     };
 
     const handlePasswordChange = (text: string) => {
-        setPassword(text);
-        const validation = validators.isValidPasswordWithMessage(text);
-        setPasswordError(validation.valid ? undefined : validation.error);
+        dispatch(loginFormActions.setPasswordAction(text));
+    };
+
+    const handleLogin = async () => {
+        if (!emailError && !passwordError) {
+            dispatch(loginAsyncThunk({ email, password }));
+        }
+    };
+
+    const getButtonText = () => {
+        if (countdown > 0) {
+            return intl.formatMessage({ id: "login.retry-countdown" }, { seconds: countdown });
+        }
+        return isLoading
+            ? intl.formatMessage({ id: "login.buttton.inProgress" })
+            : intl.formatMessage({ id: "login.button" });
     };
 
     const handleSubmitEditing = () => {
         Keyboard.dismiss();
     };
 
-    const getButtonText = () => {
-        if (countdown > 0) {
-            return `Try again in ${countdown}s`;
-        }
-        return isLoading ? "Logging in..." : "Login";
-    };
-
     return (
         <ScrollableFormContainer>
             <View style={styles.container}>
-                {/* Creative Title Section */}
+                {/* Title Section */}
                 <ThemedText variant="title" align="center" style={styles.title}>
                     <FormattedMessage id="login.title" />
                 </ThemedText>
@@ -117,11 +112,16 @@ const LoginForm = ({ loginUser, isLoading, onGoToRegister }: ILoginFormProps) =>
                 {/* Buttons Section */}
                 <View style={styles.buttonContainer}>
                     <RoundedButton
-                        disabled={isLoading || isDisabled}
+                        disabled={isDisabled}
                         text={getButtonText()}
                         onPress={handleLogin}
                         testID="login-button"
                     />
+                    {error && (
+                        <ThemedText variant="caption" color="notification" align="center">
+                            <FormattedMessage id={error} />
+                        </ThemedText>
+                    )}
                     <View style={styles.socialLoginContainer}>
                         <SocialLogin />
                     </View>
