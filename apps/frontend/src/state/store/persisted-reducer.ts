@@ -5,6 +5,7 @@ import ExpoFileSystemStorage from "@/services/expo-file-system-storage";
 const persistConfig: PersistConfig<RootState> = {
     key: "root",
     storage: ExpoFileSystemStorage,
+    blacklist: ["loginForm"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

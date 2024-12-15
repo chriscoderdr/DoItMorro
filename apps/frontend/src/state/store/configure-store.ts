@@ -8,7 +8,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: ["persist/PERSIST", "persist/REHYDRATE", "persist/PURGE"],
             },
-        }),
+        }).concat(),
 });
 
 type AppDispatch = typeof store.dispatch;

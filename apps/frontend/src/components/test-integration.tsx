@@ -10,29 +10,13 @@ import {
 } from "firebase/auth";
 import { authActions } from "@/state"; // Ensure these actions are defined in your Redux slice
 import { RootState } from "@/state/store/root-reducer";
+import { firebaseService } from "@/services";
 
 export const TestIntegration = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.auth.user);
-    const auth = getAuth();
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-            if (user) {
-                dispatch(
-                    authActions.setUserAction({
-                        name: user.displayName,
-                        email: user.email,
-                        id: user.uid,
-                    }),
-                );
-            } else {
-                dispatch(authActions.logoutAction());
-            }
-        });
-
-        return () => unsubscribe();
-    }, [auth, dispatch]);
+    console.log(`User: ${user}`);
+    const auth = firebaseService.auth;
 
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, "cjgm23@gmail.com", "Elcj2304").catch((error) => {

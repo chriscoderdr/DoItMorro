@@ -12,5 +12,17 @@
 
     "login.social.label": "Entra fácil con tus redes",
     "login.register.prompt": "¿Tú eres nuevo por aquí?",
-    "login.register.link": "¡Regístrate y arranca!"
+    "login.register.link": "¡Regístrate y arranca!",
+
+    "login.error": "¡Ay, mi loco! Algo salió mal. Échale un ojo a tus datos e inténtalo de nuevo.",
+
+    "login.button": "¡Dale, manín!",
+
+    "login.buttton.inProgress": "¡Dale, manín! Estamos en eso...",
+
+    "login.retry-countdown": "¡Ay, mi loco! Algo salió mal. Intenta de nuevo en {seconds} segundos.",
+
+    "login.too-many-attemps": "¡Ay, mi loco! Intentaste muchas veces.",
+
+    "firebase.error.invalid-credentials": "¡Qué lo qué! Ese correo o clave no tan correctos. Intenta de nuevo, manín."
 }
