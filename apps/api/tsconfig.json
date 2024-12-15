@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "target": "ES2022", // Target the latest ECMAScript version
+        "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules
+        "skipLibCheck": true, // Skip type checking of declaration files for faster builds
+        "strict": true, // Enable strict type-checking options
+        "outDir": "./dist", // Redirect output structure to the 'dist' directory
+        "rootDir": "./src", // Specify the root directory of input files
+        "resolveJsonModule": true, // Include modules imported with '.json' extension
+        "isolatedModules": true, // Ensure each file can be safely transpiled without relying on other imports
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["src/**/*.ts"], // Include all TypeScript files in the 'src' directory
+    "exclude": ["node_modules"] // Exclude 'node_modules' directory
+}
