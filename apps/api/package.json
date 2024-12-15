@@ -1,0 +1,61 @@
+{
+    "name": "doit-morro-api",
+    "version": "1.0.0",
+    "main": "src/server.ts",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/server.js",
+        "lint": "npx eslint . --ext .js,.ts",
+        "lint:fix": "npx eslint . --ext .js,.ts --fix",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx tsx watch src/server.ts",
+        "build:watch": "npx tsc --watch",
+        "migrate": "npm run build && npx sequelize db:migrate",
+        "seed": "npm run build && npx sequelize db:seed"
+    },
+    "_moduleAliases": {
+        "@": "dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/chriscoderdr/DoItMorro.git"
+    },
+    "author": "Chris Gomez",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chriscoderdr/DoItMorro/issues"
+    },
+    "homepage": "https://github.com/chriscoderdr/DoItMorro#readme",
+    "description": "",
+    "dependencies": {
+        "@koa/access-log": "^1.0.0",
+        "@koa/bodyparser": "^5.1.1",
+        "@koa/cors": "^5.0.0",
+        "@koa/router": "^13.1.0",
+        "dotenv": "^16.4.7",
+        "koa": "^2.15.3",
+        "module-alias": "^2.2.3",
+        "pg": "^8.13.1",
+        "pg-hstore": "^2.3.4",
+        "sequelize": "^6.37.5"
+    },
+    "devDependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/koa": "^2.15.0",
+        "@types/koa__cors": "^5.0.0",
+        "@types/koa__router": "^12.0.4",
+        "@types/node": "^22.10.2",
+        "@types/sequelize": "^4.28.20",
+        "@typescript-eslint/eslint-plugin": "^8.18.0",
+        "@typescript-eslint/parser": "^8.18.0",
+        "eslint": "^9.17.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "prettier": "^3.4.2",
+        "sequelize-cli": "^6.6.2",
+        "sqlite3": "^5.1.7",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2"
+    }
+}

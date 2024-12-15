@@ -40,3 +40,7 @@ pre-commit:
       root: "apps/frontend/" # Careful to have only trailing slash
       glob: "*.{js,ts,jsx,tsx}"
       run: npx eslint {staged_files} --fix
+    api-linter:
+      root: "apps/api/"
+      glob: "*.{js,ts}"
+      run: npx eslint {staged_files} --fix
