@@ -7,6 +7,7 @@ interface User {
 interface AuthState {
     isLoggedIn: boolean;
     user: User | null;
+    nextAllowedAttempt: number;
 }
 
 export { AuthState, User };

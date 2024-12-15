@@ -1,0 +1,17 @@
+{
+    "login.title": "Welcome Back, Taskmaster!",
+    "login.subtitle": "Sign in to stay on top of your goals and keep the momentum going.",
+
+    "form.email.label": "Email",
+    "form.password.label": "Password",
+
+    "form.email.invalid": "Whoops! That doesn't look like a valid email. Try again.",
+    "form.email.placeholder": "you@example.com",
+    "form.password.placeholder": "Create a strong password to unlock your tasks",
+    "form.password.tooShort": "Passwords must be at least 8 characters. Let's make it strong!",
+    
+
+    "login.social.label": "Quick access with social accounts",
+    "login.register.prompt": "New to DoItMorro?",
+    "login.register.link": "Get Started Now"
+}
