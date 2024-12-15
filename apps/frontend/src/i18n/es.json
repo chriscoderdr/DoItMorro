@@ -1,0 +1,16 @@
+{
+    "login.title": "¡Actívate, Capo de las Tareas!",
+    "login.subtitle": "Entra y sigue marcando metas como todo un duro.",
+
+    "form.email.invalid": "¡Ay, mi loco! Ese correo no se ve bien. Échale un ojo.",
+    "form.email.placeholder": "tucorreo@gmail.com",
+    "form.password.placeholder": "Pon una clave bacana para proteger tus vainas",
+    "form.password.tooShort": "La clave tiene que tener mínimo 8 caracteres. ¡Dale nivel!",
+
+    "form.email.label": "Correo",
+    "form.password.label": "clave bacana",
+
+    "login.social.label": "Entra fácil con tus redes",
+    "login.register.prompt": "¿Tú eres nuevo por aquí?",
+    "login.register.link": "¡Regístrate y arranca!"
+}

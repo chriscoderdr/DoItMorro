@@ -4,6 +4,7 @@ import { addAuthExtraReducers } from "./extra-reducers";
 
 const initialState: AuthState = {
     isLoggedIn: false,
+    nextAllowedAttempt: 0,
     user: null,
 };
 

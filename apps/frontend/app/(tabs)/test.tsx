@@ -1,10 +1,11 @@
-import { TestIntegration } from "@/components/test-integration";
+import { LoginForm } from "@/components/forms/auth/login-form";
 import { View } from "react-native";
 
 export default function TestIntegrationScreen() {
     return (
-        <View style={{ flex: 1, padding: 100 }}>
-            <TestIntegration />
+        <View style={{ flex: 1 }}>
+            <LoginForm loginUser={() => {}} isLoading={false} />
+            {/* <TestIntegration /> */}
         </View>
     );
 }
