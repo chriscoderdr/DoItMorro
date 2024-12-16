@@ -1,14 +1,8 @@
 import React from "react";
-import { Text, TextProps } from "react-native";
-import { Theme, useTheme } from "@react-navigation/native";
+import { Text } from "react-native";
+import { useTheme } from "@react-navigation/native";
 import { getTextStyles } from "./styles";
-
-interface IThemedTextProps extends TextProps {
-    variant?: "title" | "subtitle" | "body" | "caption" | "overline" | "link";
-    color?: keyof Theme["colors"];
-    align?: "left" | "center" | "right" | "justify";
-    bold?: boolean;
-}
+import { IThemedTextProps } from "./props";
 
 const ThemedText: React.FC<IThemedTextProps> = ({
     children,
@@ -29,7 +23,9 @@ const ThemedText: React.FC<IThemedTextProps> = ({
               ? "secondaryText"
               : variant === "link"
                 ? "link"
-                : "text");
+                : variant === "button"
+                  ? "onPrimary"
+                  : "text");
 
     const styles = getTextStyles({ variant, align, bold, color: resolvedColor, theme });
 

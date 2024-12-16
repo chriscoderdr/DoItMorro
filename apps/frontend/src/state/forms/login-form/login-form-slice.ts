@@ -27,6 +27,15 @@ const loginFormSlice = createSlice({
         setNextAllowedAttempt(state, action: PayloadAction<number>) {
             state.nextAllowedAttempt = action.payload;
         },
+        clearForm(state, action: PayloadAction) {
+            state.email = "";
+            state.password = "";
+            state.isLoading = false;
+            state.error = "";
+            state.nextAllowedAttempt = 0;
+            state.password = "";
+            state.passwordError = "";
+        },
     },
     extraReducers: (builder) => {
         addLoginFormExtraReducers(builder);
