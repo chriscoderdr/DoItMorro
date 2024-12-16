@@ -7,10 +7,12 @@ import { InputTextField } from "../../fields/input-text-field";
 import { InputTextAreaField } from "../../fields/input-text-area-field";
 import { DatePickerField } from "../../fields/date-picker-field/date-picker-field";
 import { withCalendarModal } from "@/hocs/with-calendar-modal";
-import { useUpdateTodoMutation } from "@/state/api/slices/todo-api-slice";
+
+import { useUpdateTodoMutation, useGetTodoQuery } from "@/state/api/slices/todo-api-slice";
 import { ConfirmationModal } from "@/components/common/confirmation-modal/confirmation-modal";
 import { View } from "react-native";
 import { getEditTodoFormStyles } from "./styles";
+import { withLoadingAndError } from "@/hocs/with-loading-and-errors";
 
 interface IEditTodoFormBaseProps {
     todoId: number;
@@ -163,7 +165,32 @@ const EditTodoFormNoEnhanced: React.FC<IEditTodoFormBaseProps> = ({
     );
 };
 
-// Explicitly type the HOC-wrapped component
-const EditTodoForm = withCalendarModal<IEditTodoFormBaseProps>(EditTodoFormNoEnhanced);
+// Wrap the form with loading and error handling
+const EnhancedEditTodoForm = withLoadingAndError(
+    withCalendarModal<IEditTodoFormBaseProps>(EditTodoFormNoEnhanced),
+);
+
+// Main component to handle loading and error states
+const EditTodoForm: React.FC<{ todoId: number }> = ({ todoId }) => {
+    const {
+        data: todo,
+        isLoading,
+        isError,
+        refetch,
+    } = useGetTodoQuery(todoId, { refetchOnMountOrArgChange: true });
+
+    return (
+        <EnhancedEditTodoForm
+            todoId={todoId}
+            initialTitle={todo?.title}
+            initialDescription={todo?.description}
+            initialDueDate={todo?.dueDate ? new Date(todo.dueDate) : undefined}
+            isLoading={isLoading}
+            isError={isError}
+            refetch={refetch}
+            onSuccess={() => console.log("Todo updated successfully!")}
+        />
+    );
+};
 
 export { EditTodoForm };

@@ -18,7 +18,7 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
 
     const handleToggleComplete = () => {
         if (onCompleteToggle) {
-            onCompleteToggle(item.id, !item.isCompleted);
+            onCompleteToggle(item);
         }
     };
 
@@ -37,10 +37,15 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
                 <View style={styles.cardHeader}>
                     {/* Checkbox for inline toggle */}
                     <Pressable
-                        style={[styles.checkbox, item.isCompleted && styles.checkboxChecked]}
+                        style={({ pressed }) => [
+                            styles.checkboxWrapper,
+                            pressed && styles.checkboxPressed, // Optional feedback on press
+                        ]}
                         onPress={handleToggleComplete}
                     >
-                        {item.isCompleted && <Text style={styles.checkboxMark}>✓</Text>}
+                        <View style={[styles.checkbox, item.isCompleted && styles.checkboxChecked]}>
+                            {item.isCompleted && <Text style={styles.checkboxMark}>✓</Text>}
+                        </View>
                     </Pressable>
                     {/* Title */}
                     <ThemedText

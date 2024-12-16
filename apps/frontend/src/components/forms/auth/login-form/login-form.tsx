@@ -122,9 +122,7 @@ const LoginForm = ({ onGoToRegister }: ILoginFormProps) => {
                             <FormattedMessage id={error} />
                         </ThemedText>
                     )}
-                    <View style={styles.socialLoginContainer}>
-                        <SocialLogin />
-                    </View>
+                    <View style={styles.socialLoginContainer}>{/* <SocialLogin /> */}</View>
                     <View style={styles.dontHaveAnAccount}>
                         {onGoToRegister && (
                             <DebouncedTouchable onPress={onGoToRegister} debounceDelay={500}>

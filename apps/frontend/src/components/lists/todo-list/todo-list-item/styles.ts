@@ -81,15 +81,24 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             color: theme.colors.notification,
             marginTop: theme.spacing.small,
         },
+        checkboxWrapper: {
+            padding: 8, // Increase the touch area
+            borderRadius: theme.spacing.large, // Ensure a rounded area for better tap feedback
+            marginRight: theme.spacing.small,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        checkboxPressed: {
+            backgroundColor: theme.colors.card, // Optional visual feedback on press
+        },
         checkbox: {
-            width: 24,
+            width: 24, // Size of the actual checkbox
             height: 24,
             borderRadius: 12,
             borderWidth: 2,
             borderColor: theme.colors.primary,
             justifyContent: "center",
             alignItems: "center",
-            marginRight: theme.spacing.small,
         },
         checkboxChecked: {
             backgroundColor: theme.colors.primary,

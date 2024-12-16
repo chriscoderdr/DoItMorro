@@ -3,7 +3,7 @@ import { rootReducer, RootState } from "./root-reducer";
 import ExpoFileSystemStorage from "@/services/expo-file-system-storage";
 import { Platform } from "react-native";
 
-const blacklist = ["loginForm", "addTodoForm"];
+const blacklist = ["loginForm", "addTodoForm", "signUpForm"];
 
 if (Platform.OS === "web") {
     blacklist.push("auth");

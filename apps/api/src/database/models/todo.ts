@@ -64,6 +64,7 @@ Todo.init(
         },
         isCompleted: {
             type: DataTypes.BOOLEAN,
+            allowNull: false,
             defaultValue: false, // Optional
             field: "is_completed", // Map to snake_case in DB
         },
