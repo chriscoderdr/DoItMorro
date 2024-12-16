@@ -13,6 +13,9 @@
         "migrate": "npm run build && npx sequelize db:migrate",
         "seed": "npm run build && npx sequelize db:seed"
     },
+    "_moduleAliases": {
+        "@": "dist"
+    },
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/chriscoderdr/DoItMorro.git"
