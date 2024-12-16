@@ -64,5 +64,23 @@
     "tabs.dashboard.title": "Dashboard",
     "tabs.profile.title": "Profile",
 
-    "addTodo.screen.header.title": "New Task"
+    "addTodo.screen.header.title": "New Task",
+
+    "addTodo.success.title": "Todo Added!",
+    "addTodo.success.message": "Your task has been successfully added. Keep crushing it!",
+    "addTodo.success.confirmText": "OK",
+
+    "addTodo.error.title": "Something Went Wrong",
+
+    "addTodo.error.confirmText": "Got It",
+
+    "todoList.fetch.error": "An error occurred while fetching todos.",
+    "todoList.delete.title": "Delete Todo",
+    "todoList.delete.message": "Are you sure you want to delete \"{title}\"?",
+    "todoList.delete.confirmText": "Delete",
+    "todoList.delete.cancelText": "Cancel",
+    "todoList.delete.success": "Todo \"{title}\" deleted successfully!",
+    "todoList.delete.error": "Failed to delete the todo. Please try again.",
+    "todoList.error.title": "Error",
+    "todoList.error.confirmText": "OK"
 }

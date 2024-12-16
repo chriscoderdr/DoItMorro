@@ -20,6 +20,10 @@ const DoItMorroTheme = {
         completedBackground: "#E9ECEF",
         completedText: "#6C757D",
         successBackground: "#D9FADD",
+        cancelButtonBackground: "#E0E0E0", // Neutral light gray for cancel button
+        confirmButtonBackground: "#388E3C", // Deep green for confirm button
+        cancelText: "#212121", // Neutral dark gray for cancel text
+        confirmText: "#FFFFFF", // White text on confirm button
     },
     fonts: {
         regular: {

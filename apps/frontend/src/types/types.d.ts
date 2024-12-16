@@ -37,6 +37,10 @@ declare module "@react-navigation/native" {
             completedBackground: string;
             completedText: string;
             successBackground: string;
+            cancelButtonBackground: string;
+            confirmButtonBackground: string;
+            cancelText: string;
+            confirmText: string;
         };
         roundness: number;
         fonts: {
