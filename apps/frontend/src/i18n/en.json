@@ -82,5 +82,23 @@
     "todoList.delete.success": "Todo \"{title}\" deleted successfully!",
     "todoList.delete.error": "Failed to delete the todo. Please try again.",
     "todoList.error.title": "Error",
-    "todoList.error.confirmText": "OK"
+    "todoList.error.confirmText": "OK",
+
+    "editTodo.title": "Edit Your Task, Boss!",
+    "editTodo.subtitle": "Update the info and stay on track.",
+    "editTodo.title.label": "What's the new title?",
+    "editTodo.title.placeholder": "E.g., Fix the bike",
+    "editTodo.description.label": "What's the new description?",
+    "editTodo.description.placeholder": "Add more details here...",
+    "editTodo.dueDate.label": "New Due Date",
+    "editTodo.dueDate.placeholder": "YYYY-MM-DD",
+    "editTodo.button": "Update Task",
+    "editTodo.button.inProgress": "Updating...",
+    "editTodo.error.title": "Something Went Wrong!",
+    "editTodo.error": "We couldn't update your task. Please try again.",
+    "editTodo.error.confirmText": "OK",
+    "editTodo.success.title": "Task Updated!",
+    "editTodo.success.message": "Your task has been successfully updated. Keep crushing it!",
+    "editTodo.success.confirmText": "All Right!",
+    "editTodo.screen.header.title": "Edit Task"
 }

@@ -1,0 +1,30 @@
+1.	Title: Lavar el motor
+Description: Esa vaina está llena de aceite. Hay que dejarla brillando pa’ que luzca.
+Due Date: 2024-12-18
+	2.	Title: Comprar los plátanos pa’ la cena
+Description: No puedo llegar sin los plátanos, si no, la doña se quilla.
+Due Date: 2024-12-16
+	3.	Title: Pintar la sala de verde
+Description: La doña quiere la sala como un bosque. Vamos a cumplirle.
+Due Date: 2024-12-20
+	4.	Title: Cambiar el bombillo del patio
+Description: Ese patio parece una cueva. Hay que ponerle un bombillo ya.
+Due Date: 2024-12-17
+	5.	Title: Reparar la puerta que chilla
+Description: Cada vez que abro esa puerta, parece que matan a alguien. Hay que echarle grasa.
+Due Date: 2024-12-22
+	6.	Title: Revisar la goma trasera de la moto
+Description: Esa goma está como rara. Mejor revisarla antes de que me deje botado.
+Due Date: 2024-12-21
+	7.	Title: Planchar la camisa blanca
+Description: El pana tiene una reunión y no puede ir doblado. Hay que planchar esa camisa.
+Due Date: 2024-12-19
+	8.	Title: Llevar la basura al zafacón
+Description: El zafacón de la casa ya no aguanta más. Hay que sacar esa basura.
+Due Date: 2024-12-16
+	9.	Title: Ir a buscar la doña al salón
+Description: Si no la busco, me meto en problema. Hay que buscarla temprano.
+Due Date: 2024-12-15
+	10.	Title: Arreglar el aire que no enfría
+Description: Este calor no me deja dormir. Hay que buscar un técnico urgente.
+Due Date: 2024-12-23

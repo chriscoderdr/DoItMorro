@@ -2,8 +2,10 @@ import { CalendarModal } from "@/components/forms/fields/date-picker-field/calen
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
-export const withCalendarModal = (WrappedComponent: React.ComponentType<any>) => {
-    const WithCalendarModal = (props: any) => {
+export const withCalendarModal = <P extends object>(
+    WrappedComponent: React.ComponentType<P>,
+): React.FC<Omit<P, "openCalendar" | "selectedDate">> => {
+    const WithCalendarModal: React.FC<Omit<P, "openCalendar" | "selectedDate">> = (props) => {
         // Calendar state
         const [isCalendarVisible, setCalendarVisible] = useState(false);
         const [activeMonth, setActiveMonth] = useState(new Date().getMonth());
@@ -38,7 +40,7 @@ export const withCalendarModal = (WrappedComponent: React.ComponentType<any>) =>
 
                 {/* Pass down props */}
                 <WrappedComponent
-                    {...props}
+                    {...(props as P)}
                     openCalendar={openCalendar}
                     selectedDate={selectedDate}
                 />

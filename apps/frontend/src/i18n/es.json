@@ -81,5 +81,24 @@
     "todoList.delete.success": "¡La vaina \"{title}\" se botó con éxito!",
     "todoList.delete.error": "No se pudo botar la vaina. Intenta de nuevo, manín.",
     "todoList.error.title": "¡Error!",
-    "todoList.error.confirmText": "¡Ta' bien!"
+    "todoList.error.confirmText": "¡Ta' bien!",
+
+    "editTodo.title": "Edita la Vaina, Capo!",
+    "editTodo.subtitle": "Actualiza la info y sigue alante.",
+    "editTodo.title.label": "¿Qué nombre le ponemos ahora?",
+    "editTodo.title.placeholder": "Ejemplo: Arreglar el motor",
+    "editTodo.description.label": "¿Qué hay que ajustar?",
+    "editTodo.description.placeholder": "Dale más detalle aquí...",
+    "editTodo.dueDate.label": "Nueva Fecha",
+    "editTodo.dueDate.placeholder": "AAAA-MM-DD",
+    "editTodo.button": "Actualizar Vaina",
+    "editTodo.button.inProgress": "Actualizando...",
+    "editTodo.error.title": "¡Algo Salió Mal!",
+    "editTodo.error": "No se pudo actualizar la vaina. Intenta de nuevo, manín.",
+    "editTodo.error.confirmText": "¡Ta' bien!",
+    "editTodo.success.title": "¡Vaina Actualizada!",
+    "editTodo.success.message": "Tu vaina se actualizó con éxito. ¡Sigue rompiendo, capo!",
+    "editTodo.success.confirmText": "¡Ta' bien!",
+    "editTodo.screen.header.title": "Edita la Vaina",
+
 }

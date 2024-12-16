@@ -4,7 +4,7 @@ import { authMiddleware } from "@/middlewares";
 
 const deleteTodoRouter = new Router();
 
-deleteTodoRouter.delete("/:id", authMiddleware, async (ctx) => {
+deleteTodoRouter.delete("/:id/delete", authMiddleware, async (ctx) => {
     const { id } = ctx.params;
 
     if (!id) {

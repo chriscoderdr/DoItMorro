@@ -41,6 +41,12 @@ const TodoListScreen = () => {
 
     const handleTodoPress = (todo: ITodoItem) => {
         console.log("Todo clicked:", todo);
+        router.push({
+            pathname: "/todos/edit/[todoId]",
+            params: {
+                todoId: todo.id,
+            },
+        });
     };
 
     const handleAddPress = () => {
