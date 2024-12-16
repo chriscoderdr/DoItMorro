@@ -4,7 +4,7 @@ import dotEnvt from "dotenv";
 dotEnvt.config();
 
 import { app } from "./app";
-import { sequelize } from "@/database";
+import { sequelize } from "./database";
 
 const PORT = process.env.PORT || 4000;
 

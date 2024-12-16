@@ -3,10 +3,12 @@ import Router from "@koa/router";
 import bodyParser from "@koa/bodyparser";
 import cors from "@koa/cors";
 import accessLogs from "@koa/access-log";
+import { mainRouter } from "./routes";
 
 const app = new Koa();
 const router = new Router();
 
+router.use(mainRouter.routes(), mainRouter.allowedMethods());
 const isDevelopmentMode = process.env.NODE_ENV !== "production";
 
 app.use(

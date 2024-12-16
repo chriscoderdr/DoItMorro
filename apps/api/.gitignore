@@ -66,3 +66,5 @@ Thumbs.db
 .nuxt/
 
 development.sqlite
+
+firebase-service-account.config.json

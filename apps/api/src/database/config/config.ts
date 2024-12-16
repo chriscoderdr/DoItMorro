@@ -1,3 +1,6 @@
+import dotEnvt from "dotenv";
+
+dotEnvt.config();
 interface DatabaseConfig {
     username: string | null;
     password: string | null;
