@@ -17,6 +17,8 @@ const DoItMorroTheme = {
         secondaryOnBackground: "#616161", // Neutral gray for secondary labels
         link: "#0A84FF", // Bright blue for links
         button: "#FFFFFF",
+        completedBackground: "#E9ECEF",
+        completedText: "#6C757D",
     },
     fonts: {
         regular: {

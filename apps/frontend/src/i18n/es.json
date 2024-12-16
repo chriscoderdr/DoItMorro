@@ -50,5 +50,14 @@
     "addTodo.error": "¡Ay, mi loco! No se pudo agregar la tarea. Revisa los datos e inténtalo de nuevo.",
     "addTodo.dueDate.error": "Hmm... Esa fecha no cuadra. Escoge una válida dentro del rango.",
     "calendar.goToToday": "Pa' Hoy",
-    "calendar.close": "Ciérralo"
+    "calendar.close": "Ciérralo",
+
+    "todoList.title": "¡Tus Vainas, Manín!",
+    "todoList.addTodo": "¡Mete una Tarea, Capo!",
+    "todoList.emptyMessage": "¡Ey, mi loco! No tienes nada por aquí. ¡Arranca y mete una tarea ya!",
+
+    "todoList.todayTitle": "Las Vainas de Hoy – ¡A Romper, Manín!",
+    "todoList.upcomingTitle": "Lo Que Viene – ¡Sigue Enfocado, Capo!",
+    "todoList.completedAt": "Hecho – ¡Durísimo, manín!",
+    "todoList.completed": "¡Resuelto!"
 }
