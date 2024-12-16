@@ -28,20 +28,8 @@ interface TodoCreationAttributes
         | "updated_at"
     > {}
 
-class Todo extends Model<TodoAttributes, TodoCreationAttributes> implements TodoAttributes {
-    public id!: number;
-    public user_id!: number;
-    public title!: string;
-    public description?: string;
-    public is_completed?: boolean;
-    public due_date?: Date | null;
-    public created_at!: Date;
-    public updated_at!: Date;
-    public completed_at?: Date | null;
-
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-
+class Todo extends Model<TodoAttributes, TodoCreationAttributes> {
+    // Static association method
     public static associate(models: { User: typeof User }): void {
         Todo.belongsTo(models.User, { foreignKey: "user_id" });
     }

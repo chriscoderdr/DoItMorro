@@ -17,12 +17,16 @@ export const authMiddleware = async (ctx: Context, next: Next): Promise<void> =>
 
     const token = authHeader.split(" ")[1];
 
+    console.log(`TOKEN: ${token}`);
+
     try {
         const decodedToken = await firebaseAuth.verifyIdToken(token);
 
         let user = await models.User.findOne({
-            where: { email: decodedToken.email },
+            where: { firebase_uid: decodedToken.uid },
         });
+
+        console.error(`USEER###: ${JSON.stringify(user)}`);
 
         // Create a new user if they don't exist
         if (!user) {
@@ -32,19 +36,14 @@ export const authMiddleware = async (ctx: Context, next: Next): Promise<void> =>
                 display_name: decodedToken.name,
                 profile_picture_url: decodedToken.picture,
             });
-        } else if (user) {
-            // Update the user's name if it has changed
-            if (user.display_name !== decodedToken.name) {
-                user.display_name = decodedToken.name;
-                await user.save();
-            }
         }
 
+        console.log(`user: ${JSON.stringify(user.dataValues.id)}`);
         // Set user information in the state
         ctx.state.user = {
-            id: user?.id,
+            userId: user.dataValues.id,
             uid: decodedToken.uid,
-            email: user?.email,
+            email: user.dataValues.email,
         };
 
         await next();

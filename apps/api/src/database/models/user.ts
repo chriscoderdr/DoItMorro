@@ -8,34 +8,25 @@ interface UserAttributes {
     email: string | null;
     display_name: string | null;
     profile_picture_url: string | null;
-    created_at: Date; // Populated by the database
-    updated_at: Date; // Populated by the database
+    created_at: Date;
+    updated_at: Date;
 }
 
 // Interface for creation attributes (fields required/optional during creation)
 interface UserCreationAttributes
     extends Optional<
-        Omit<UserAttributes, "created_at" | "updated_at">, // Exclude auto-managed fields
+        Omit<UserAttributes, "created_at" | "updated_at">,
         "id" | "firebase_uid" | "email" | "display_name" | "profile_picture_url"
     > {}
 
-class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-    public id!: number;
-    public firebase_uid!: string | null;
-    public email!: string | null;
-    public display_name!: string | null;
-    public profile_picture_url!: string | null;
-    public created_at!: Date;
-    public updated_at!: Date;
-
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-
+class User extends Model<UserAttributes, UserCreationAttributes> {
+    // Static method to define associations (optional)
     public static associate(): void {
         // Add associations here
     }
 }
 
+// Initialize the User model
 User.init(
     {
         id: {
@@ -46,36 +37,36 @@ User.init(
         firebase_uid: {
             type: DataTypes.STRING(255),
             unique: true,
-            allowNull: true, // Optional
+            allowNull: true,
         },
         email: {
             type: DataTypes.STRING(255),
             unique: true,
-            allowNull: true, // Optional
+            allowNull: true,
         },
         display_name: {
             type: DataTypes.STRING(255),
-            allowNull: true, // Optional
+            allowNull: true,
         },
         profile_picture_url: {
             type: DataTypes.STRING(255),
-            allowNull: true, // Optional
+            allowNull: true,
         },
         created_at: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW, // Handled by DB
+            defaultValue: DataTypes.NOW,
         },
         updated_at: {
             type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: DataTypes.NOW, // Handled by DB
+            defaultValue: DataTypes.NOW,
         },
     },
     {
         sequelize,
         tableName: "users",
-        timestamps: false, // Sequelize won't auto-manage timestamps
+        timestamps: false,
     },
 );
 
