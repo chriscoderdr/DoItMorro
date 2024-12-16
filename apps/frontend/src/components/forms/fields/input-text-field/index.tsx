@@ -1,3 +1,3 @@
-import InputTextField from "./input-text-field";
+import { InputTextField } from "./input-text-field";
 
 export { InputTextField };

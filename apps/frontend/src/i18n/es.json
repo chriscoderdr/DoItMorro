@@ -4,6 +4,18 @@
 
     "form.email.invalid": "¡Ay, mi loco! Ese correo no se ve bien. Échale un ojo.",
     "form.email.placeholder": "tucorreo@gmail.com",
+
+    "form.name.tooShort": "El nombre tiene que tener al menos 2 caracteres. ¡Ponte pa’ eso!",
+    "form.required": "Este campo es obligatorio, manín.",
+
+    "form.title.tooShort": "El título tiene que tener mínimo 3 caracteres. ¡No seas vago!",
+    "form.title.tooLong": "El título no puede pasar de 50 caracteres. ¡Córtalo un chin!",
+
+    "form.description.tooShort": "La descripción tiene que tener mínimo 10 caracteres. ¡Dale más detalle!",
+    "form.description.tooLong": "La descripción no puede pasar de 300 caracteres. ¡Resume la vaina!",
+
+    "form.dueDate.invalid": "La fecha de vencimiento no puede estar en el pasado. ¡Ponte al día!",
+
     "form.password.placeholder": "Pon una clave bacana para proteger tus vainas",
     "form.password.tooShort": "La clave tiene que tener mínimo 8 caracteres. ¡Dale nivel!",
 
@@ -17,12 +29,26 @@
     "login.error": "¡Ay, mi loco! Algo salió mal. Échale un ojo a tus datos e inténtalo de nuevo.",
 
     "login.button": "¡Dale, manín!",
-
     "login.buttton.inProgress": "¡Dale, manín! Estamos en eso...",
 
     "login.retry-countdown": "¡Ay, mi loco! Algo salió mal. Intenta de nuevo en {seconds} segundos.",
 
     "login.too-many-attemps": "¡Ay, mi loco! Intentaste muchas veces.",
 
-    "firebase.error.invalid-credentials": "¡Qué lo qué! Ese correo o clave no tan correctos. Intenta de nuevo, manín."
+    "firebase.error.invalid-credentials": "¡Qué lo qué! Ese correo o clave no tan correctos. Intenta de nuevo, manín.",
+
+    "addTodo.title": "¡Agrega una Tarea, Capo!",
+    "addTodo.subtitle": "Llena los detalles y marca otra meta.",
+    "addTodo.title.label": "Título",
+    "addTodo.title.placeholder": "Ejemplo: Comprar víveres",
+    "addTodo.description.label": "Descripción",
+    "addTodo.description.placeholder": "Detalles de la tarea...",
+    "addTodo.dueDate.label": "Fecha de Vencimiento",
+    "addTodo.dueDate.placeholder": "AAAA-MM-DD",
+    "addTodo.button": "¡Agregar Tarea!",
+    "addTodo.button.inProgress": "¡Agregando...!",
+    "addTodo.error": "¡Ay, mi loco! No se pudo agregar la tarea. Revisa los datos e inténtalo de nuevo.",
+    "addTodo.dueDate.error": "Hmm... Esa fecha no cuadra. Escoge una válida dentro del rango.",
+    "calendar.goToToday": "Pa' Hoy",
+    "calendar.close": "Ciérralo"
 }

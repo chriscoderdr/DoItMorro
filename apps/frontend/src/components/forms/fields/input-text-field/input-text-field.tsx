@@ -71,4 +71,4 @@ const InputTextField = forwardRef<any, IInputTextFieldProps>(
 
 InputTextField.displayName = "InputTextField";
 
-export default InputTextField;
+export { InputTextField };

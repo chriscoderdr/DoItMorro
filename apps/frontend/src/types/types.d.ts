@@ -3,7 +3,18 @@ import "@react-navigation/native";
 
 interface IFont {
     fontFamily: string;
-    fontWeight: string;
+    fontWeight:
+        | "normal"
+        | "bold"
+        | "100"
+        | "200"
+        | "300"
+        | "400"
+        | "500"
+        | "600"
+        | "700"
+        | "800"
+        | "900";
 }
 
 declare module "@react-navigation/native" {
@@ -22,6 +33,7 @@ declare module "@react-navigation/native" {
             secondaryBackground: string;
             secondaryText: string;
             secondaryBorder: string;
+            link: string;
         };
         roundness: number;
         fonts: {
@@ -29,6 +41,7 @@ declare module "@react-navigation/native" {
             medium: IFont;
             light: IFont;
             thin: IFont;
+            bold: IFont;
         };
         spacing: {
             none: number;

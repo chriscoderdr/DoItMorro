@@ -7,6 +7,17 @@
 
     "form.email.invalid": "Whoops! That doesn't look like a valid email. Try again.",
     "form.email.placeholder": "you@example.com",
+
+    "form.name.tooShort": "The name must be at least 2 characters long.",
+    "form.required": "This field is required.",
+    "form.title.tooShort": "The title must be at least 3 characters long.",
+    "form.title.tooLong": "The title must not exceed 50 characters.",
+
+    "form.description.tooShort": "The description must be at least 10 characters long.",
+    "form.description.tooLong": "The description must not exceed 300 characters.",
+
+    "form.dueDate.invalid": "The due date cannot be in the past.",
+
     "form.password.placeholder": "Create a strong password to unlock your tasks",
     "form.password.tooShort": "Passwords must be at least 8 characters. Let's make it strong!",
 
@@ -23,5 +34,20 @@
 
     "login.too-many-attemps": "Whoops! Too many attempts. Take a breather and try again later.",
 
-    "firebase.error.invalid-credentials": "Invalid email or password. Please try again."
+    "firebase.error.invalid-credentials": "Invalid email or password. Please try again.",
+
+    "addTodo.title": "Add a New Task!",
+    "addTodo.subtitle": "Fill in the details and hit that goal.",
+    "addTodo.title.label": "Title",
+    "addTodo.title.placeholder": "E.g., Buy groceries",
+    "addTodo.description.label": "Description",
+    "addTodo.description.placeholder": "Task details...",
+    "addTodo.dueDate.label": "Due Date",
+    "addTodo.dueDate.placeholder": "YYYY-MM-DD",
+    "addTodo.button": "Add Task",
+    "addTodo.button.inProgress": "Adding...",
+    "addTodo.error": "Uh-oh! Couldn't create the task. Double-check the details and try again.",
+    "addTodo.dueDate.error": "Hmm... That due date doesn’t look right. Choose a valid date within range.",
+    "calendar.goToToday": "Let’s jump back to today!",
+    "calendar.close": "close"
 }

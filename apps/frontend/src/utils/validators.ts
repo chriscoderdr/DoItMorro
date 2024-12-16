@@ -17,6 +17,26 @@ export const messages = defineMessages({
         id: "form.required",
         defaultMessage: "This field is required.",
     },
+    titleTooShort: {
+        id: "form.title.tooShort",
+        defaultMessage: "The title must be at least 3 characters long.",
+    },
+    titleTooLong: {
+        id: "form.title.tooLong",
+        defaultMessage: "The title must not exceed 50 characters.",
+    },
+    descriptionTooShort: {
+        id: "form.description.tooShort",
+        defaultMessage: "The description must be at least 10 characters long.",
+    },
+    descriptionTooLong: {
+        id: "form.description.tooLong",
+        defaultMessage: "The description must not exceed 300 characters.",
+    },
+    dueDateInvalid: {
+        id: "form.dueDate.invalid",
+        defaultMessage: "The due date cannot be in the past.",
+    },
 });
 
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -43,6 +63,44 @@ const validateRequiredWithMessage = (value: string) => {
     return value.trim() ? { valid: true } : { valid: false, error: messages.requiredField.id };
 };
 
+const isValidTitle = (title: string) => title.trim().length >= 3 && title.trim().length <= 50;
+
+const isValidTitleWithMessage = (title: string) => {
+    if (title.trim().length < 3) {
+        return { valid: false, error: messages.titleTooShort.id };
+    }
+    if (title.trim().length > 50) {
+        return { valid: false, error: messages.titleTooLong.id };
+    }
+    return { valid: true };
+};
+
+const isValidDescription = (description: string) =>
+    description.trim().length >= 10 && description.trim().length <= 300;
+
+const isValidDescriptionWithMessage = (description: string) => {
+    if (description.trim().length < 10) {
+        return { valid: false, error: messages.descriptionTooShort.id };
+    }
+    if (description.trim().length > 300) {
+        return { valid: false, error: messages.descriptionTooLong.id };
+    }
+    return { valid: true };
+};
+
+const isValidDueDate = (dueDate?: Date) => {
+    if (!dueDate) return true; // Undefined is valid as it's optional
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight
+    return dueDate >= today;
+};
+
+const isValidDueDateWithMessage = (dueDate?: Date) => {
+    return isValidDueDate(dueDate)
+        ? { valid: true }
+        : { valid: false, error: messages.dueDateInvalid.id };
+};
+
 export const validators = {
     isValidEmail,
     isValidPassword,
@@ -51,4 +109,10 @@ export const validators = {
     isValidPasswordWithMessage,
     isValidNameWithMessage,
     validateRequiredWithMessage,
+    isValidTitle,
+    isValidTitleWithMessage,
+    isValidDescription,
+    isValidDescriptionWithMessage,
+    isValidDueDate,
+    isValidDueDateWithMessage,
 };

@@ -2,7 +2,7 @@ import { StyleSheet, TextStyle } from "react-native";
 import { Theme } from "@react-navigation/native";
 
 interface TextStylesParams {
-    variant: "title" | "subtitle" | "body" | "caption" | "overline" | "link";
+    variant: "title" | "subtitle" | "body" | "caption" | "overline" | "link" | "button";
     align: "left" | "center" | "right" | "justify";
     bold: boolean;
     color: keyof Theme["colors"];
@@ -31,19 +31,19 @@ const getTextStyles = ({ variant, align, bold, color, theme }: TextStylesParams)
               ? theme.fonts.sizes.medium
               : variant === "caption" || variant === "overline"
                 ? theme.fonts.sizes.small
-                : variant === "link"
+                : variant === "link" || variant === "button"
                   ? theme.fonts.sizes.medium
                   : theme.fonts.sizes.medium;
 
     const fontFamily =
-        bold || variant === "title"
+        bold || variant === "title" || variant === "button"
             ? theme.fonts.bold.fontFamily
             : variant === "subtitle"
               ? theme.fonts.medium.fontFamily
               : theme.fonts.regular.fontFamily;
 
     const fontWeight =
-        bold || variant === "title"
+        bold || variant === "title" || variant === "button"
             ? theme.fonts.bold.fontWeight
             : variant === "subtitle"
               ? theme.fonts.medium.fontWeight
@@ -59,6 +59,7 @@ const getTextStyles = ({ variant, align, bold, color, theme }: TextStylesParams)
             fontWeight,
             textAlign: align,
             color: textColor,
+            ...(variant === "button" && { textTransform: "uppercase" }),
         } as TextStyle,
     });
 };
