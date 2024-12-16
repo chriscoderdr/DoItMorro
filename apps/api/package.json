@@ -1,10 +1,10 @@
 {
     "name": "doit-morro-api",
     "version": "1.0.0",
-    "main": "src/server.ts",
+    "main": "index.js",
     "scripts": {
         "build": "tsc",
-        "start": "node dist/server.js",
+        "start": "node index.js",
         "lint": "npx eslint . --ext .js,.ts",
         "lint:fix": "npx eslint . --ext .js,.ts --fix",
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,7 @@
         "seed": "npm run build && npx sequelize db:seed"
     },
     "_moduleAliases": {
-        "@": "dist"
+        "@": "./dist/"
     },
     "repository": {
         "type": "git",
