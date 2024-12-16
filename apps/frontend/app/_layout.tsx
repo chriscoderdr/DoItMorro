@@ -8,14 +8,15 @@ import { getLocales } from "expo-localization";
 import { Provider } from "react-redux";
 import { persistor, store } from "@/state";
 import { PersistGate } from "redux-persist/integration/react";
-import { ActivityIndicator, View } from "react-native";
 import { DoItMorroTheme } from "@/theming";
 import { IntlProvider } from "react-intl";
 import enMessages from "@/i18n/en.json";
 import esMessages from "@/i18n/es.json";
 import { firebaseAuthStateListener, firebaseService } from "@/services/firebase";
 import { AppNavigator } from "@/navigation";
-import { LoadingScreen } from "@/components/common";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { LoadingScreen } from "@/components/screens";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,9 +32,8 @@ export default function RootLayout() {
 
     useEffect(() => {
         const loadResources = async () => {
-            // Load localization
             const locales = getLocales();
-            const primaryLocale = locales[0]?.languageCode || "en"; // Fallback to "en" if undefined
+            const primaryLocale = locales[0]?.languageCode || "en";
             const supportedLocales: Record<string, typeof enMessages> = {
                 en: enMessages,
                 es: esMessages,
@@ -47,13 +47,8 @@ export default function RootLayout() {
                 setCurrentMessages(enMessages);
             }
 
-            // Wait for fonts to load
             if (!fontsLoaded) return;
 
-            // Simulate additional async tasks here if needed (e.g., API prefetch)
-            // await someAsyncTask();
-
-            // Mark all resources as loaded
             setAllLoaded(true);
             SplashScreen.hideAsync();
             firebaseService.auth.onAuthStateChanged(firebaseAuthStateListener);
@@ -67,14 +62,16 @@ export default function RootLayout() {
     }
 
     return (
-        <Provider store={store}>
-            <PersistGate loading={<LoadingScreen />} persistor={persistor}>
-                <IntlProvider locale={locale} messages={currentMessages}>
-                    <ThemeProvider value={DoItMorroTheme}>
-                        <AppNavigator />
-                    </ThemeProvider>
-                </IntlProvider>
-            </PersistGate>
-        </Provider>
+        <SafeAreaProvider>
+            <Provider store={store}>
+                <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+                    <IntlProvider locale={locale} messages={currentMessages}>
+                        <ThemeProvider value={DoItMorroTheme}>
+                            <AppNavigator />
+                        </ThemeProvider>
+                    </IntlProvider>
+                </PersistGate>
+            </Provider>
+        </SafeAreaProvider>
     );
 }

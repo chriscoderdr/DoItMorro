@@ -7,15 +7,29 @@ import { IconSymbol } from "../../components/ui/IconSymbol";
 import TabBarBackground from "../../components/ui/TabBarBackground";
 import { Colors } from "../../constants/Colors";
 import { useColorScheme } from "../../hooks/useColorScheme";
+import { useIntl } from "react-intl";
+import { Header } from "@/components/common/header";
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
+    const intl = useIntl();
 
     return (
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-                headerShown: false,
+                header: ({ route }) => {
+                    // Render a custom header for each screen
+                    const isProfile = route.name === "profile";
+
+                    return (
+                        <Header
+                            showProfilePicture={isProfile}
+                            profilePicture="https://example.com/profile.jpg" // Replace with actual profile URL
+                            onProfilePress={() => console.log("Profile Picture Pressed")}
+                        />
+                    );
+                },
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
                 tabBarStyle: Platform.select({
@@ -30,27 +44,22 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: "Home",
+                    title: intl.formatMessage({
+                        id: "tabs.dashboard.title",
+                    }),
                     tabBarIcon: ({ color }) => (
-                        <IconSymbol size={28} name="house.fill" color={color} />
+                        <IconSymbol size={28} name="calendar.circle.fill" color={color} />
                     ),
                 }}
             />
             <Tabs.Screen
-                name="explore"
+                name="profile"
                 options={{
-                    title: "Explore",
+                    title: intl.formatMessage({
+                        id: "tabs.profile.title",
+                    }),
                     tabBarIcon: ({ color }) => (
-                        <IconSymbol size={28} name="paperplane.fill" color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="test"
-                options={{
-                    title: "test",
-                    tabBarIcon: ({ color }) => (
-                        <IconSymbol size={28} name="paperplane.fill" color={color} />
+                        <IconSymbol size={28} name="person.circle.fill" color={color} />
                     ),
                 }}
             />

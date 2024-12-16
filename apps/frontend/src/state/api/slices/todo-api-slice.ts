@@ -6,6 +6,8 @@ interface Todo {
     title: string;
     description?: string;
     dueDate?: string;
+    isCompleted: boolean;
+    completedAt: Date;
     createdAt: string;
     updatedAt: string;
 }

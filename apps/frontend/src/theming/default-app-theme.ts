@@ -19,6 +19,7 @@ const DoItMorroTheme = {
         button: "#FFFFFF",
         completedBackground: "#E9ECEF",
         completedText: "#6C757D",
+        successBackground: "#D9FADD",
     },
     fonts: {
         regular: {

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { getLoadingScreenStyles } from "./styles";
 import { DoItMorroTheme } from "@/theming";
-import { LoadingIndicator } from "../loading-indicator";
+import { LoadingIndicator } from "@/components/common/loading-indicator";
 
 const LoadingScreen = () => {
     const theme = useTheme();

@@ -6,7 +6,12 @@ import { getTodoListItemStyles } from "./styles";
 import { useTheme } from "@react-navigation/native";
 import { useIntl } from "react-intl";
 
-const TodoListItem: React.FC<ITodoListItemProps> = ({ item, onItemPress, onCompleteToggle }) => {
+const TodoListItem: React.FC<ITodoListItemProps> = ({
+    item,
+    onItemPress,
+    onCompleteToggle,
+    onDelete,
+}) => {
     const theme = useTheme();
     const styles = getTodoListItemStyles({ theme });
     const intl = useIntl();
@@ -14,6 +19,12 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({ item, onItemPress, onCompl
     const handleToggleComplete = () => {
         if (onCompleteToggle) {
             onCompleteToggle(item.id, !item.isCompleted);
+        }
+    };
+
+    const handleDelete = () => {
+        if (onDelete) {
+            onDelete(item.id);
         }
     };
 
@@ -89,6 +100,12 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({ item, onItemPress, onCompl
                         </View>
                     </View>
                 )}
+                {/* Delete Button */}
+                <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+                    <Text style={styles.deleteButtonText}>
+                        {intl.formatMessage({ id: "todoList.delete" })}
+                    </Text>
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
     );
