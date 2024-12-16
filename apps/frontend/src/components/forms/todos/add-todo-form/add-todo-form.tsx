@@ -15,11 +15,7 @@ import { RootState } from "@/state/store/root-reducer";
 import { View } from "react-native";
 import { useCreateTodoMutation } from "@/state/api/slices/todo-api-slice";
 import { ConfirmationModal } from "@/components/common/confirmation-modal/confirmation-modal";
-
-interface IAddTodoFormProps {
-    openCalendar: () => void;
-    selectedDate?: Date;
-}
+import { IAddTodoFormProps } from "./props";
 
 const AddTodoFormNoEnhanced: React.FC<IAddTodoFormProps> = ({ openCalendar, selectedDate }) => {
     const dispatch = useAppDispatch();

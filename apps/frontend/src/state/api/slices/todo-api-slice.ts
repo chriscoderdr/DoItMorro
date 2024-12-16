@@ -33,14 +33,46 @@ export const todoApiSlice = createApi({
             transformResponse: (response: { data: Todo[] }) => response.data,
             providesTags: ["Todo"],
         }),
+        getTodo: builder.query<Todo, number>({
+            query: (id) => ({
+                url: `/todos/${id}/get`,
+                method: "GET",
+            }),
+            transformResponse: (response: { data: Todo }) => response.data, // Extracts the single todo
+            providesTags: (result, error, id) => [{ type: "Todo", id }],
+        }),
         deleteTodo: builder.mutation<void, number>({
             query: (id) => ({
-                url: `/todos/${id}`,
+                url: `/todos/${id}/delete`,
                 method: "DELETE",
             }),
             invalidatesTags: ["Todo"],
         }),
+        updateTodo: builder.mutation<
+            Todo,
+            { id: number; data: Omit<Todo, "id" | "createdAt" | "updatedAt"> }
+        >({
+            query: ({ id, data }) => ({
+                url: `/todos/${id}/update`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: "Todo", id }],
+        }),
+        markTodoComplete: builder.mutation<Todo, number>({
+            query: (id) => ({
+                url: `/todos/${id}/complete`,
+                method: "PATCH",
+            }),
+            invalidatesTags: (result, error, id) => [{ type: "Todo", id }],
+        }),
     }),
 });
 
-export const { useCreateTodoMutation, useGetTodosQuery, useDeleteTodoMutation } = todoApiSlice;
+export const {
+    useCreateTodoMutation,
+    useGetTodosQuery,
+    useDeleteTodoMutation,
+    useGetTodoQuery,
+    useUpdateTodoMutation,
+} = todoApiSlice;

@@ -27,6 +27,14 @@ const AppNavigator = () => {
                         }),
                     }}
                 />
+                <Stack.Screen
+                    name="todos/edit/[todoId]"
+                    options={{
+                        title: intl.formatMessage({
+                            id: "editTodo.screen.header.title",
+                        }),
+                    }}
+                />
             </Stack>
             <StatusBar style="auto" />
         </>
