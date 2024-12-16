@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { Theme } from "@react-navigation/native";
 
 interface ConfirmationModalStylesParams {
@@ -9,6 +9,10 @@ interface ConfirmationModalStylesParams {
             text: string;
             secondaryOnBackground: string;
             notification: string;
+            cancelButtonBackground: string;
+            confirmButtonBackground: string;
+            cancelText: string;
+            confirmText: string;
         };
         spacing: {
             small: number;
@@ -30,12 +34,13 @@ export const getConfirmationModalStyles = ({ theme }: ConfirmationModalStylesPar
     StyleSheet.create({
         overlay: {
             flex: 1,
-            backgroundColor: "rgba(0, 0, 0, 0.6)", // Slightly darker overlay for better contrast
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
             justifyContent: "center",
             alignItems: "center",
         },
         modalContainer: {
-            width: "85%",
+            width: Platform.OS === "web" ? "40%" : "85%",
+            maxHeight: Platform.OS === "web" ? "70%" : "auto",
             backgroundColor: theme.colors.background,
             borderRadius: theme.spacing.medium,
             padding: theme.spacing.large,
@@ -67,11 +72,12 @@ export const getConfirmationModalStyles = ({ theme }: ConfirmationModalStylesPar
             marginTop: theme.spacing.large,
         },
         button: {
-            flex: 1,
-            paddingVertical: theme.spacing.medium,
+            width: Platform.OS === "web" ? 140 : "45%", // Static width for web, proportional for mobile
+            paddingVertical: theme.spacing.medium + 2, // Add slight padding for better touch size
             marginHorizontal: theme.spacing.small,
             borderRadius: theme.spacing.small,
             alignItems: "center",
+            justifyContent: "center",
             elevation: 2,
         },
         cancelButton: {
@@ -84,10 +90,12 @@ export const getConfirmationModalStyles = ({ theme }: ConfirmationModalStylesPar
             color: theme.colors.cancelText,
             fontFamily: theme.fonts.bold.fontFamily,
             fontSize: theme.fonts.sizes.medium.fontSize,
+            textAlign: "center",
         },
         confirmText: {
             color: theme.colors.confirmText,
             fontFamily: theme.fonts.bold.fontFamily,
             fontSize: theme.fonts.sizes.medium.fontSize,
+            textAlign: "center",
         },
     });

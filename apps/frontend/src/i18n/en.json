@@ -49,7 +49,7 @@
     "addTodo.error": "Uh-oh! Couldn't create the task. Double-check the details and try again.",
     "addTodo.dueDate.error": "Hmm... That due date doesn’t look right. Choose a valid date within range.",
     "calendar.goToToday": "Let’s jump back to today!",
-    "calendar.close": "close",
+    "calendar.close": "Close",
 
     "todoList.title": "Your Tasks",
     "todoList.addTodo": "Add Task",
@@ -100,5 +100,10 @@
     "editTodo.success.title": "Task Updated!",
     "editTodo.success.message": "Your task has been successfully updated. Keep crushing it!",
     "editTodo.success.confirmText": "All Right!",
-    "editTodo.screen.header.title": "Edit Task"
+    "editTodo.screen.header.title": "Edit Task",
+
+    "form.displayName.placeholder": "Enter your name",
+    "form.displayName.label": "Name",
+    "signup.action.goToLogin.label": "Already have an account?",
+    "signup.action.goToLogin.button": "Log In Now"
 }

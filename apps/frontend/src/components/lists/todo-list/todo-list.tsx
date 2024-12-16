@@ -9,11 +9,16 @@ import * as Localization from "expo-localization";
 import { parseISO, isSameDay } from "date-fns";
 import { toDate } from "date-fns-tz";
 
-const TodoList: React.FC<ITodoListProps> = ({ todos, onItemPress, onAddPress, onDeleteItem }) => {
+const TodoList: React.FC<ITodoListProps> = ({
+    todos,
+    onItemPress,
+    onAddPress,
+    onDeleteItem,
+    onComplete,
+}) => {
     const theme = useTheme();
     const styles = getTodoListStyles({ theme });
     const intl = useIntl();
-    console.log(`todos: ${JSON.stringify(todos)}`);
 
     // Get the user's timezone
     const userTimezone = Localization.timezone;
@@ -22,17 +27,18 @@ const TodoList: React.FC<ITodoListProps> = ({ todos, onItemPress, onAddPress, on
     const now = new Date();
     const today = toDate(now, { timeZone: userTimezone });
 
-    // Filter tasks for today and upcoming
+    // Filter tasks for today
     const todayTasks = todos?.filter((todo) => {
         if (!todo.dueDate) return false;
         const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
-        return isSameDay(today, dueDateInUserTimezone) || [];
+        return isSameDay(today, dueDateInUserTimezone);
     });
 
+    // Filter tasks for upcoming (explicitly exclude today’s tasks)
     const upcomingTasks = todos?.filter((todo) => {
-        if (!todo.dueDate) return true;
+        if (!todo.dueDate) return false;
         const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
-        return !isSameDay(today, dueDateInUserTimezone) || [];
+        return !todayTasks.some((t) => t.id === todo.id);
     });
 
     // Prepare sections
@@ -67,9 +73,7 @@ const TodoList: React.FC<ITodoListProps> = ({ todos, onItemPress, onAddPress, on
                     <TodoListItem
                         item={item}
                         onItemPress={onItemPress}
-                        onCompleteToggle={(id, isCompleted) =>
-                            item.onComplete && item.onComplete(id, isCompleted)
-                        }
+                        onCompleteToggle={onComplete}
                         onDelete={onDeleteItem}
                     />
                 )}

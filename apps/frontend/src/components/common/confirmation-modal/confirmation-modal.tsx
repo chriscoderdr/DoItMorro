@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
+import { Modal, View, Text, TouchableOpacity, Platform } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { getConfirmationModalStyles } from "./styles";
 

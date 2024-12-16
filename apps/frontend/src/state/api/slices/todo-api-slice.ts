@@ -75,4 +75,5 @@ export const {
     useDeleteTodoMutation,
     useGetTodoQuery,
     useUpdateTodoMutation,
+    useMarkTodoCompleteMutation,
 } = todoApiSlice;

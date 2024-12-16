@@ -1,3 +1,3 @@
 import { firebaseConfig } from "./firebase";
-
-export { firebaseConfig };
+import { authConfig } from "./auth-config";
+export { firebaseConfig, authConfig };

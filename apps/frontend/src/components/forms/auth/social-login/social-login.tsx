@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Image } from "react-native";
-import {
-    signInWithGoogle,
-    signInWithFacebook,
-    configureGoogleSignIn,
-} from "@/services/auth-service";
+import { useGoogleSignIn } from "@/hooks/use-google-signin";
+import { useFacebookSignIn } from "@/hooks/use-facebook-signin";
 import { useTheme } from "@react-navigation/native";
 import { getSocialLoginStyles } from "./styles";
 import { ThemedText } from "@/components/common";
@@ -15,21 +12,26 @@ const SocialLogin: React.FC = () => {
     const theme = useTheme();
     const styles = getSocialLoginStyles({ theme });
 
-    useEffect(() => {
-        configureGoogleSignIn();
-    }, []);
-
-    const handleLogin = async (provider: "Google" | "Facebook") => {
-        try {
-            if (provider === "Google") {
-                await signInWithGoogle();
-            } else if (provider === "Facebook") {
-                await signInWithFacebook();
-            }
-        } catch (error) {
-            console.error(`Error authenticating with ${provider}:`, error);
-        }
+    const handleGoogleSignInSuccess = (idToken: string) => {
+        console.log("Google Sign-In successful:", idToken);
     };
+
+    const handleFacebookSignInSuccess = (accessToken: string) => {
+        console.log("Facebook Sign-In successful:", accessToken);
+    };
+
+    const handleSignInError = (error: Error) => {
+        console.error("Sign-In Error:", error);
+    };
+
+    const { signIn: signInWithGoogle } = useGoogleSignIn(
+        handleGoogleSignInSuccess,
+        handleSignInError,
+    );
+    const { signIn: signInWithFacebook } = useFacebookSignIn(
+        handleFacebookSignInSuccess,
+        handleSignInError,
+    );
 
     return (
         <View style={styles.container}>
@@ -47,7 +49,7 @@ const SocialLogin: React.FC = () => {
             <View style={styles.buttonContainer}>
                 <DebouncedTouchable
                     style={styles.button}
-                    onPress={() => handleLogin("Google")}
+                    onPress={signInWithGoogle}
                     debounceDelay={500}
                 >
                     <Image
@@ -57,7 +59,7 @@ const SocialLogin: React.FC = () => {
                 </DebouncedTouchable>
                 <DebouncedTouchable
                     style={styles.button}
-                    onPress={() => handleLogin("Facebook")}
+                    onPress={signInWithFacebook}
                     debounceDelay={500}
                 >
                     <Image

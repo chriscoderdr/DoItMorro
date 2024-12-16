@@ -1,7 +1,17 @@
 import { LoginForm } from "@/components/forms/auth/login-form";
+import { useRouter } from "expo-router";
 
 const LoginScreen = () => {
-    return <LoginForm loginUser={() => {}} isLoading={false} onGoToRegister={() => {}} />;
+    const router = useRouter();
+    return (
+        <LoginForm
+            loginUser={() => {}}
+            isLoading={false}
+            onGoToRegister={() => {
+                router.push("/sign-up");
+            }}
+        />
+    );
 };
 
 export default LoginScreen;
