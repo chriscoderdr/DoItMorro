@@ -3,27 +3,27 @@
     "login.subtitle": "Entra y sigue marcando metas como todo un duro.",
 
     "form.email.invalid": "¡Ay, mi loco! Ese correo no se ve bien. Échale un ojo.",
-    "form.email.placeholder": "tucorreo@gmail.com",
+    "form.email.placeholder": "eltuyo@gmail.com",
 
-    "form.name.tooShort": "El nombre tiene que tener al menos 2 caracteres. ¡Ponte pa’ eso!",
+    "form.name.tooShort": "El nombre necesita mínimo 2 letras. ¡Pon algo heavy!",
     "form.required": "Este campo es obligatorio, manín.",
 
-    "form.title.tooShort": "El título tiene que tener mínimo 3 caracteres. ¡No seas vago!",
-    "form.title.tooLong": "El título no puede pasar de 50 caracteres. ¡Córtalo un chin!",
+    "form.title.tooShort": "Esa vaina necesita al menos 3 letras. ¡No lo dejes vacío, loco!",
+    "form.title.tooLong": "Manín, no te pases. Máximo 50 letras, sé conciso.",
 
-    "form.description.tooShort": "La descripción tiene que tener mínimo 10 caracteres. ¡Dale más detalle!",
-    "form.description.tooLong": "La descripción no puede pasar de 300 caracteres. ¡Resume la vaina!",
+    "form.description.tooShort": "Esa descripción está floja, mínimo 10 letras.",
+    "form.description.tooLong": "¡Esa descripción es una novela! Hazlo de menos de 300 letras.",
 
-    "form.dueDate.invalid": "La fecha de vencimiento no puede estar en el pasado. ¡Ponte al día!",
+    "form.dueDate.invalid": "Esa fecha no cuadra, loco. ¡El pasado ya pasó!",
 
-    "form.password.placeholder": "Pon una clave bacana para proteger tus vainas",
-    "form.password.tooShort": "La clave tiene que tener mínimo 8 caracteres. ¡Dale nivel!",
+    "form.password.placeholder": "Pon una clave bacana pa’ que no te hackeen.",
+    "form.password.tooShort": "La clave tiene que tener mínimo 8 letras. ¡Dale seguridad a esa vaina!",
 
     "form.email.label": "Correo",
-    "form.password.label": "clave bacana",
+    "form.password.label": "Clave",
 
-    "login.social.label": "Entra fácil con tus redes",
-    "login.register.prompt": "¿Tú eres nuevo por aquí?",
+    "login.social.label": "Entra rápido con tus redes",
+    "login.register.prompt": "¿Tú eres nuevo aquí?",
     "login.register.link": "¡Regístrate y arranca!",
 
     "login.error": "¡Ay, mi loco! Algo salió mal. Échale un ojo a tus datos e inténtalo de nuevo.",
@@ -33,17 +33,17 @@
 
     "login.retry-countdown": "¡Ay, mi loco! Algo salió mal. Intenta de nuevo en {seconds} segundos.",
 
-    "login.too-many-attemps": "¡Ay, mi loco! Intentaste muchas veces.",
+    "login.too-many-attemps": "¡Ay, mi loco! Intentaste demasiadas veces. Aguanta un chin.",
 
-    "firebase.error.invalid-credentials": "¡Qué lo qué! Ese correo o clave no tan correctos. Intenta de nuevo, manín.",
+    "firebase.error.invalid-credentials": "¡Qué lo qué! Ese correo o clave no están bien. Revisa eso, manín.",
 
-    "addTodo.title": "¡Agrega una Tarea, Capo!",
-    "addTodo.subtitle": "Llena los detalles y marca otra meta.",
-    "addTodo.title.label": "Título",
-    "addTodo.title.placeholder": "Ejemplo: Comprar víveres",
-    "addTodo.description.label": "Descripción",
-    "addTodo.description.placeholder": "Detalles de la tarea...",
-    "addTodo.dueDate.label": "Fecha de Vencimiento",
+    "addTodo.title": "¡Mete una Tarea, Capo!",
+    "addTodo.subtitle": "Llena la info y ponte pa' lo tuyo.",
+    "addTodo.title.label": "¿Qué vas a hacer?",
+    "addTodo.title.placeholder": "Ejemplo: Limpiar el motor",
+    "addTodo.description.label": "¿Qué hay que hacer?",
+    "addTodo.description.placeholder": "Dale más detalle a la vaina...",
+    "addTodo.dueDate.label": "¿Pa' Cuándo?",
     "addTodo.dueDate.placeholder": "AAAA-MM-DD",
     "addTodo.button": "¡Agregar Tarea!",
     "addTodo.button.inProgress": "¡Agregando...!",
@@ -62,5 +62,24 @@
     "todoList.completed": "¡Resuelto!",
     "todoList.delete": "¡Bótala, que ya no sirve!",
     "tabs.dashboard.title": "Vaina Control",
-    "addTodo.screen.header.title": "Nueva vaina"
+    "tabs.profile.title": "Mi vaina",
+    "addTodo.screen.header.title": "Nueva vaina",
+
+    "addTodo.success.title": "¡Tarea Agregada!",
+    "addTodo.success.message": "Tu tarea se agregó exitosamente. ¡Sigue rompiendo, capo!",
+    "addTodo.success.confirmText": "¡Ta' Bien!",
+
+    "addTodo.error.title": "¡Algo Salió Mal!",
+
+    "addTodo.error.confirmText": "¡Ta' Bien!",
+
+    "todoList.fetch.error": "¡Ay, mi loco! Hubo un problema buscando tus vainas.",
+    "todoList.delete.title": "Bota la Vaina",
+    "todoList.delete.message": "¿Seguro que quieres botar \"{title}\"?",
+    "todoList.delete.confirmText": "Bótala",
+    "todoList.delete.cancelText": "No, deja eso",
+    "todoList.delete.success": "¡La vaina \"{title}\" se botó con éxito!",
+    "todoList.delete.error": "No se pudo botar la vaina. Intenta de nuevo, manín.",
+    "todoList.error.title": "¡Error!",
+    "todoList.error.confirmText": "¡Ta' bien!"
 }

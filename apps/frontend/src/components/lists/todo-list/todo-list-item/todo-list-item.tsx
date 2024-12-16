@@ -24,7 +24,7 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
 
     const handleDelete = () => {
         if (onDelete) {
-            onDelete(item.id);
+            onDelete(item);
         }
     };
 

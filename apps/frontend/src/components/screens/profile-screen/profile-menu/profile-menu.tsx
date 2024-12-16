@@ -6,7 +6,7 @@ import { getProfileMenuStyles } from "./styles";
 import { useTheme } from "@react-navigation/native";
 
 interface ProfileMenuProps {
-    options: Array<any>;
+    options: any[];
     onItemPress: (item: any) => void;
     profilePhoto?: string | null;
     displayName?: string;

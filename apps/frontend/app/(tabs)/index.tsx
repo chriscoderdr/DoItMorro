@@ -1,19 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TodoList } from "@/components/lists/todo-list";
-import { useGetTodosQuery } from "@/state/api/slices/todo-api-slice";
+import { useGetTodosQuery, useDeleteTodoMutation } from "@/state/api/slices/todo-api-slice";
 import { ActivityIndicator, View, Text } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { ThemedText } from "@/components/common";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ITodoItem } from "@/components/lists/todo-list/props";
 import { useRouter } from "expo-router";
+import { ConfirmationModal } from "@/components/common/confirmation-modal/confirmation-modal";
 
 const TodoListScreen = () => {
     const theme = useTheme();
     const isFocused = useIsFocused();
     const router = useRouter();
+    const intl = useIntl();
+
     const {
         data: todos = [],
         isLoading,
@@ -24,13 +27,19 @@ const TodoListScreen = () => {
         refetchOnMountOrArgChange: true,
     });
 
+    const [deleteTodo, { isLoading: isDeleting }] = useDeleteTodoMutation();
+    const [selectedTodo, setSelectedTodo] = useState<ITodoItem | null>(null);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
     useEffect(() => {
         if (isFocused) {
             refetch();
         }
     }, [isFocused, refetch]);
 
-    const handleTodoPress = (todo: any) => {
+    const handleTodoPress = (todo: ITodoItem) => {
         console.log("Todo clicked:", todo);
     };
 
@@ -39,7 +48,39 @@ const TodoListScreen = () => {
     };
 
     const handleOnDeleteItem = (item: ITodoItem) => {
-        console.log("item delete");
+        setSelectedTodo(item);
+        setModalVisible(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!selectedTodo) return;
+
+        try {
+            await deleteTodo(selectedTodo.id).unwrap();
+            console.log(
+                intl.formatMessage(
+                    { id: "todoList.delete.success" },
+                    { title: selectedTodo.title },
+                ),
+            );
+        } catch (err) {
+            console.error("Failed to delete todo:", err);
+            setErrorMessage(intl.formatMessage({ id: "todoList.delete.error" }));
+            setErrorModalVisible(true);
+        } finally {
+            setModalVisible(false);
+            setSelectedTodo(null);
+        }
+    };
+
+    const handleCancelDelete = () => {
+        setModalVisible(false);
+        setSelectedTodo(null);
+    };
+
+    const handleAcknowledgeError = () => {
+        setErrorModalVisible(false);
+        setErrorMessage("");
     };
 
     if (isLoading) {
@@ -69,7 +110,7 @@ const TodoListScreen = () => {
                     }}
                 >
                     <Text style={{ color: theme.colors.notification }}>
-                        {error?.data?.message || "An error occurred while fetching todos."}
+                        {error?.data?.message || intl.formatMessage({ id: "todoList.fetch.error" })}
                     </Text>
                 </View>
             </SafeAreaView>
@@ -97,9 +138,33 @@ const TodoListScreen = () => {
                         onItemPress={handleTodoPress}
                         onAddPress={handleAddPress}
                         onDeleteItem={handleOnDeleteItem}
+                        isDeleting={isDeleting}
                     />
                 </View>
             </View>
+
+            {/* Confirmation Modal */}
+            <ConfirmationModal
+                visible={isModalVisible}
+                title={intl.formatMessage({ id: "todoList.delete.title" })}
+                message={intl.formatMessage(
+                    { id: "todoList.delete.message" },
+                    { title: selectedTodo?.title },
+                )}
+                confirmText={intl.formatMessage({ id: "todoList.delete.confirmText" })}
+                cancelText={intl.formatMessage({ id: "todoList.delete.cancelText" })}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+            />
+
+            {/* Error Modal */}
+            <ConfirmationModal
+                visible={errorModalVisible}
+                title={intl.formatMessage({ id: "todoList.error.title" })}
+                message={errorMessage}
+                confirmText={intl.formatMessage({ id: "todoList.error.confirmText" })}
+                onConfirm={handleAcknowledgeError}
+            />
         </SafeAreaView>
     );
 };
