@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { Theme } from "@react-navigation/native";
 
 interface TodoListItemStylesParams {
@@ -140,5 +140,19 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             fontSize: theme.fonts.sizes.small.fontSize,
             color: theme.colors.onPrimary,
             fontWeight: "bold",
+        },
+        deleteButton: {
+            marginTop: theme.spacing.medium,
+            backgroundColor: theme.colors.notification,
+            padding: theme.spacing.medium,
+            borderRadius: theme.roundness,
+            alignSelf: Platform.OS === "web" ? "flex-end" : "flex-end",
+            alignItems: "center",
+            width: Platform.OS === "web" ? 250 : "auto",
+        },
+        deleteButtonText: {
+            fontFamily: theme.fonts.bold.fontFamily,
+            fontSize: theme.fonts.sizes.small.fontSize,
+            color: theme.colors.onPrimary,
         },
     });

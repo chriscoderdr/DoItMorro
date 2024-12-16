@@ -22,10 +22,9 @@ export const getTodoListStyles = ({ theme }: TodoListStylesParams) =>
         container: {
             flex: 1,
             backgroundColor: theme.colors.background,
-            paddingBottom: theme.spacing.large * 3.5,
         },
         listContent: {
-            paddingBottom: theme.spacing.large * 2,
+            paddingBottom: theme.spacing.large * 8,
         },
         sectionHeader: {
             fontSize: 18,
@@ -51,7 +50,7 @@ export const getTodoListStyles = ({ theme }: TodoListStylesParams) =>
         },
         floatingButton: {
             position: "absolute",
-            bottom: theme.spacing.large * 2.8,
+            bottom: theme.spacing.large * 5,
             right: theme.spacing.large,
             backgroundColor: theme.colors.primary,
             width: 64,

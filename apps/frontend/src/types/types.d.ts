@@ -36,6 +36,7 @@ declare module "@react-navigation/native" {
             link: string;
             completedBackground: string;
             completedText: string;
+            successBackground: string;
         };
         roundness: number;
         fonts: {

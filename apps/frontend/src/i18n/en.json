@@ -59,5 +59,10 @@
     "todoList.upcomingTitle": "On the Horizon – Keep the Momentum!",
 
     "todoList.completedAt": "Completed – Nice work!",
-    "todoList.completed": "Done"
+    "todoList.completed": "Done",
+    "todoList.delete": "Delete Task – Keep It Tidy!",
+    "tabs.dashboard.title": "Dashboard",
+    "tabs.profile.title": "Profile",
+
+    "addTodo.screen.header.title": "New Task"
 }

@@ -59,5 +59,8 @@
     "todoList.todayTitle": "Las Vainas de Hoy – ¡A Romper, Manín!",
     "todoList.upcomingTitle": "Lo Que Viene – ¡Sigue Enfocado, Capo!",
     "todoList.completedAt": "Hecho – ¡Durísimo, manín!",
-    "todoList.completed": "¡Resuelto!"
+    "todoList.completed": "¡Resuelto!",
+    "todoList.delete": "¡Bótala, que ya no sirve!",
+    "tabs.dashboard.title": "Vaina Control",
+    "addTodo.screen.header.title": "Nueva vaina"
 }

@@ -3,7 +3,6 @@ import { Redirect } from "expo-router";
 import { Image, ImageBackground, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { LoadingScreen } from "@/components/common";
 import { LoadingIndicator } from "@/components/common/loading-indicator";
 
 const Index = () => {
