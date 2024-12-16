@@ -29,16 +29,16 @@ const TodoList: React.FC<ITodoListProps> = ({
 
     // Filter tasks for today
     const todayTasks = todos?.filter((todo) => {
-        if (!todo.dueDate) return false;
+        if (!todo.dueDate) return false; // No dueDate, not a today task
         const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
         return isSameDay(today, dueDateInUserTimezone);
     });
 
-    // Filter tasks for upcoming (explicitly exclude today’s tasks)
+    // Filter tasks for upcoming (include tasks without a dueDate)
     const upcomingTasks = todos?.filter((todo) => {
-        if (!todo.dueDate) return false;
+        if (!todo.dueDate) return true; // No dueDate, include in upcoming
         const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
-        return !todayTasks.some((t) => t.id === todo.id);
+        return !todayTasks.some((t) => t.id === todo.id); // Explicitly exclude today's tasks
     });
 
     // Prepare sections
