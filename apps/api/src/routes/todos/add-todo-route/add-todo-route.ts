@@ -3,6 +3,7 @@ import { AddTodoRequestBody } from "../types";
 import { validators } from "@/utils/validators";
 import { Todo } from "@/database/models/todo";
 import { authMiddleware } from "@/middlewares";
+import { startOfDay, isValid, parseISO } from "date-fns";
 
 const addTodoRouter = new Router();
 
@@ -13,8 +14,8 @@ addTodoRouter.post(
     async (ctx) => {
         const { title, description, dueDate: dueDateRaw } = ctx.request.body as AddTodoRequestBody;
 
-        // Convert dueDate to a Date object if it's a valid string
-        const dueDate = dueDateRaw ? new Date(dueDateRaw) : undefined;
+        // Parse and normalize dueDate to the server's timezone
+        const dueDate = dueDateRaw ? parseISO(dueDateRaw) : undefined;
 
         // Validate fields
         const validationResult = validators.validateFields([
@@ -33,12 +34,15 @@ addTodoRouter.post(
                 value: dueDate,
                 isOptional: true,
                 customValidator: () => {
-                    if (dueDate && isNaN(dueDate.getTime())) {
+                    if (dueDate && !isValid(dueDate)) {
                         return "Invalid date format";
                     }
-                    if (dueDate && dueDate < new Date()) {
+
+                    // Allow tasks for today or in the future
+                    if (dueDate && dueDate < startOfDay(new Date())) {
                         return "Due date cannot be in the past";
                     }
+
                     return true;
                 },
             },
@@ -53,12 +57,11 @@ addTodoRouter.post(
         }
 
         try {
-            console.error(`UserID: ${JSON.stringify(ctx.state)}`);
             const newTodo = await Todo.create({
                 title,
                 description: description,
-                due_date: dueDate,
-                user_id: ctx.state.user.userId,
+                dueDate,
+                userId: ctx.state.user.userId,
             });
 
             ctx.status = 201;

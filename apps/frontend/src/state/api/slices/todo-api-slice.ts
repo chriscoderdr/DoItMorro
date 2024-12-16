@@ -1,28 +1,37 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../base-query";
 
 interface Todo {
-    id?: number;
+    id: number;
     title: string;
     description?: string;
-    dueDate?: string; // ISO string format for the due date
+    dueDate?: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export const todoApiSlice = createApi({
-    reducerPath: "todoApi", // Make sure this is unique
+    reducerPath: "todoApi",
     baseQuery: baseQuery,
     tagTypes: ["Todo"],
     endpoints: (builder) => ({
-        createTodo: builder.mutation<Todo, Todo>({
+        createTodo: builder.mutation<Todo, Omit<Todo, "id" | "createdAt" | "updatedAt">>({
             query: (todo) => ({
                 url: "/todos",
                 method: "POST",
                 body: todo,
             }),
-            invalidatesTags: ["Todo"], // Invalidate cache if needed after creation
+            invalidatesTags: ["Todo"],
+        }),
+        getTodos: builder.query<Todo[], void>({
+            query: () => ({
+                url: "/todos",
+                method: "GET",
+            }),
+            transformResponse: (response: { data: Todo[] }) => response.data, // Transform to extract the array
+            providesTags: ["Todo"],
         }),
     }),
 });
 
-// Export the mutation hook
-export const { useCreateTodoMutation } = todoApiSlice;
+export const { useCreateTodoMutation, useGetTodosQuery } = todoApiSlice;

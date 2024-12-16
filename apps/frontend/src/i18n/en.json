@@ -49,5 +49,15 @@
     "addTodo.error": "Uh-oh! Couldn't create the task. Double-check the details and try again.",
     "addTodo.dueDate.error": "Hmm... That due date doesn’t look right. Choose a valid date within range.",
     "calendar.goToToday": "Let’s jump back to today!",
-    "calendar.close": "close"
+    "calendar.close": "close",
+
+    "todoList.title": "Your Tasks",
+    "todoList.addTodo": "Add Task",
+    "todoList.emptyMessage": "No tasks for now. Take a break and relax! 🎉",
+
+    "todoList.todayTitle": "Today’s To-Dos – Let’s Crush It!",
+    "todoList.upcomingTitle": "On the Horizon – Keep the Momentum!",
+
+    "todoList.completedAt": "Completed – Nice work!",
+    "todoList.completed": "Done"
 }

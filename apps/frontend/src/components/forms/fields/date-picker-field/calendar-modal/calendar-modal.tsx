@@ -26,6 +26,9 @@ export const CalendarModal: React.FC<ICalendarModalProps> = ({
         setActiveMonth(today.getMonth());
         setActiveYear(today.getFullYear());
     };
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0); // Set the time to 12:00 AM
+
     // min today Date
     return (
         <ReusableModal visible={visible} onClose={onClose}>
@@ -37,7 +40,7 @@ export const CalendarModal: React.FC<ICalendarModalProps> = ({
                 onDateSelect={onDateSelect}
                 onGoToToday={goToToday}
                 onClose={onClose}
-                minDate={new Date()}
+                minDate={startOfToday}
             />
         </ReusableModal>
     );
