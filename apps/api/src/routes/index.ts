@@ -1,0 +1,1 @@
+export { mainRouter } from "./routes";

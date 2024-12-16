@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistedReducer } from "./persisted-reducer";
+import { todoApiSlice } from "../api/slices";
 
 const store = configureStore({
     reducer: persistedReducer,
@@ -8,7 +9,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: ["persist/PERSIST", "persist/REHYDRATE", "persist/PURGE"],
             },
-        }).concat(),
+        }).concat(todoApiSlice.middleware),
 });
 
 type AppDispatch = typeof store.dispatch;
