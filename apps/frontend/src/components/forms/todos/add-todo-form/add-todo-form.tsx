@@ -13,6 +13,7 @@ import { addTodoActions } from "@/state/forms/add-todo-form/actions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store/root-reducer";
 import { View } from "react-native";
+import { useCreateTodoMutation } from "@/state/api/slices/todo-api-slice";
 
 interface IAddTodoFormProps {
     openCalendar: () => void;
@@ -21,23 +22,37 @@ interface IAddTodoFormProps {
 
 const AddTodoFormNoEnhanced: React.FC<IAddTodoFormProps> = ({ openCalendar, selectedDate }) => {
     const dispatch = useAppDispatch();
-    const { title, description, titleError, descriptionError, dueDateError, isLoading } =
+    const { title, description, titleError, descriptionError, dueDateError, isLoading, error } =
         useSelector((state: RootState) => state.addTodoForm);
 
     const theme = useTheme();
     const styles = getAddTodoFormStyles({ theme });
     const intl = useIntl();
+    const [createTodo] = useCreateTodoMutation();
 
     const handleTitleChange = (text: string) => dispatch(addTodoActions.setTitleAction(text));
 
     const handleDescriptionChange = (text: string) =>
         dispatch(addTodoActions.setDescriptionAction(text));
 
-    const handleAddTodo = () => {
+    const handleAddTodo = async () => {
         if (!title.trim() || titleError || descriptionError || dueDateError) {
             return;
         }
-        dispatch(addTodoActions.setClearFormAction());
+        try {
+            dispatch(addTodoActions.setIsLoadingAction(true));
+            await createTodo({
+                title,
+                description: description || undefined,
+                dueDate: selectedDate?.toISOString() || undefined,
+            }).unwrap();
+            dispatch(addTodoActions.setClearFormAction());
+            // Optionally reset form fields after success
+        } catch (error) {
+            dispatch(addTodoActions.setIsLoadingAction(false));
+            console.error(error);
+            dispatch(addTodoActions.setErrorAction("addTodo.error"));
+        }
     };
 
     return (
@@ -92,6 +107,11 @@ const AddTodoFormNoEnhanced: React.FC<IAddTodoFormProps> = ({ openCalendar, sele
                         onPress={handleAddTodo}
                         testID="add-todo-button"
                     />
+                    {error && (
+                        <ThemedText variant="caption" color="notification" align="center">
+                            <FormattedMessage id={error} />
+                        </ThemedText>
+                    )}
                 </View>
             </View>
         </ScrollableFormContainer>

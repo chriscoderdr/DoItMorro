@@ -37,6 +37,12 @@ const addTodoFormSlice = createSlice({
             state.error = "";
             state.titleError = "";
         },
+        setIsLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload;
+        },
+        setError: (state, action: PayloadAction<string | undefined>) => {
+            state.error = action.payload;
+        },
     },
 });
 
