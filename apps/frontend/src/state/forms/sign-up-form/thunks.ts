@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { signUpFormActions } from "./actions";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseService } from "@/services";
+import { firebaseUtils, utils } from "@/utils";
+import { authActions } from "@/state/auth";
 
 export const signUpAsyncThunk = createAsyncThunk(
     "signUpForm/signUp",
@@ -16,14 +18,23 @@ export const signUpAsyncThunk = createAsyncThunk(
                 email,
                 password,
             );
-            await updateProfile(userCredential.user, {
+            const updatedProfile = await firebaseUtils.updateUserProfile(
+                userCredential,
                 displayName,
-            });
-            return userCredential.user;
+            );
+            const user = {
+                firebaseUid: updatedProfile.uid,
+                email: updatedProfile.email,
+                name: displayName,
+                photoURL: updatedProfile.photoURL,
+            };
+            dispatch(authActions.loginUserAction(user));
+            return user;
         } catch (error: any) {
-            const waitTime = 30000; // Cooldown for 30 seconds
+            const waitTime = 10000; // Cooldown for 30 seconds
             dispatch(signUpFormActions.setNextAllowedAttemptAction(Date.now() + waitTime));
-            return rejectWithValue(error.message);
+            const friendlyErrorMessage = utils.firebaseErrorMapper.mapFirebaseError(error.code);
+            return rejectWithValue(friendlyErrorMessage);
         }
     },
 );

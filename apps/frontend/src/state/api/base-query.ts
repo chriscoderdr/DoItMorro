@@ -5,7 +5,7 @@ import { firebaseService } from "@/services";
 export const baseQuery = async (args: FetchArgs, api: any, extraOptions: any) => {
     const baseQuery = fetchBaseQuery({
         timeout: 5000, // Increased timeout for better reliability
-        baseUrl: process.env.EXPO_PUBLIC_API_BASE_URL || "",
+        baseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
         prepareHeaders: async (headers, { getState }) => {
             const isLoggedIn = (getState() as RootState).auth.isLoggedIn;
 

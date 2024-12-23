@@ -50,7 +50,10 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             backgroundColor: theme.colors.completedBackground,
             borderWidth: 1,
             borderColor: theme.colors.notification,
-            position: "relative",
+        },
+        pastDueCard: {
+            borderColor: theme.colors.notification,
+            borderWidth: 1,
         },
         cardContent: {
             flexDirection: "column",
@@ -65,15 +68,11 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             color: theme.colors.text,
             flex: 1,
         },
-        strikethroughText: {
-            textDecorationLine: "line-through",
-            color: theme.colors.secondaryOnBackground,
-        },
-        cardDescription: {
+        pastDueText: {
+            marginTop: theme.spacing.small,
             fontFamily: theme.fonts.regular.fontFamily,
             fontSize: theme.fonts.sizes.small.fontSize,
-            color: theme.colors.secondaryOnBackground,
-            marginTop: theme.spacing.small,
+            color: theme.colors.notification,
         },
         dueDate: {
             fontFamily: theme.fonts.regular.fontFamily,
@@ -82,17 +81,17 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             marginTop: theme.spacing.small,
         },
         checkboxWrapper: {
-            padding: 8, // Increase the touch area
-            borderRadius: theme.spacing.large, // Ensure a rounded area for better tap feedback
+            padding: 8,
+            borderRadius: theme.spacing.large,
             marginRight: theme.spacing.small,
             justifyContent: "center",
             alignItems: "center",
         },
         checkboxPressed: {
-            backgroundColor: theme.colors.card, // Optional visual feedback on press
+            backgroundColor: theme.colors.card,
         },
         checkbox: {
-            width: 24, // Size of the actual checkbox
+            width: 24,
             height: 24,
             borderRadius: 12,
             borderWidth: 2,
@@ -107,48 +106,6 @@ export const getTodoListItemStyles = ({ theme }: TodoListItemStylesParams) =>
             color: theme.colors.onPrimary,
             fontWeight: "bold",
             fontSize: 14,
-        },
-        completedAtContainer: {
-            marginTop: theme.spacing.medium,
-            paddingVertical: theme.spacing.large,
-            paddingHorizontal: theme.spacing.medium,
-            backgroundColor: theme.colors.completedBackground,
-            borderRadius: theme.roundness,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
-            elevation: 2,
-            position: "relative",
-        },
-        completedAtLabel: {
-            fontFamily: theme.fonts.bold.fontFamily,
-            fontSize: theme.fonts.sizes.small.fontSize,
-            color: theme.colors.secondaryOnBackground,
-        },
-        completedAtTimestamp: {
-            fontFamily: theme.fonts.regular.fontFamily,
-            fontSize: theme.fonts.sizes.small.fontSize,
-            color: theme.colors.text,
-            marginTop: theme.spacing.small,
-        },
-        completedBadge: {
-            position: "absolute",
-            bottom: theme.spacing.small,
-            right: theme.spacing.small,
-            backgroundColor: theme.colors.notification,
-            paddingHorizontal: 10,
-            paddingVertical: 5,
-            borderRadius: theme.roundness,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 4,
-        },
-        completedBadgeText: {
-            fontSize: theme.fonts.sizes.small.fontSize,
-            color: theme.colors.onPrimary,
-            fontWeight: "bold",
         },
         deleteButton: {
             marginTop: theme.spacing.medium,

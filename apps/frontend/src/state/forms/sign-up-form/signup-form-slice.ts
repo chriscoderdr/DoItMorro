@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { signUpAsyncThunk } from "./thunks";
+import { validators } from "@/utils/validators";
 
 interface SignUpFormState {
     email: string;
@@ -27,16 +28,32 @@ const signUpFormSlice = createSlice({
     reducers: {
         setEmail(state, action: PayloadAction<string>) {
             state.email = action.payload;
-            state.emailError = !action.payload.includes("@") ? "Invalid email address" : undefined;
+            const validation = validators.isValidEmailWithMessage(action.payload);
+            state.emailError = validation.valid ? undefined : validation.error;
         },
         setPassword(state, action: PayloadAction<string>) {
             state.password = action.payload;
-            state.passwordError =
-                action.payload.length < 6 ? "Password must be at least 6 characters" : undefined;
+            const validation = validators.isValidPasswordWithMessage(action.payload);
+            state.passwordError = validation.valid ? undefined : validation.error;
         },
         setDisplayName(state, action: PayloadAction<string>) {
             state.displayName = action.payload;
-            state.displayNameError = !action.payload ? "Display name is required" : undefined;
+            const validation = validators.isValidNameWithMessage(action.payload);
+            state.displayNameError = validation.valid ? undefined : validation.error;
+        },
+        setNextAllowedAttempt(state, action: PayloadAction<number>) {
+            state.nextAllowedAttempt = action.payload;
+        },
+        clearForm(state) {
+            state.email = "";
+            state.password = "";
+            state.displayName = "";
+            state.emailError = undefined;
+            state.passwordError = undefined;
+            state.displayNameError = undefined;
+            state.isLoading = false;
+            state.error = undefined;
+            state.nextAllowedAttempt = 0;
         },
     },
     extraReducers: (builder) => {
@@ -59,3 +76,4 @@ const signUpFormSlice = createSlice({
 });
 
 export const signUpFormReducer = signUpFormSlice.reducer;
+export const signUpFormActions = signUpFormSlice.actions;

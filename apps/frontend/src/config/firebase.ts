@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.EXPO_PUBLIC_APP_ID,
-    measurementId: process.env.EXPO_PUBLIC_MEASUREMENT_ID,
+    apiKey: "AIzaSyCqkadpjDYNHAmGF3rj1H_FIgfOk405mU8",
+    authDomain: "doitmorro.firebaseapp.com",
+    projectId: "doitmorro",
+    storageBucket: "doitmorro.firebasestorage.app",
+    messagingSenderId: "846605865361",
+    appId: "G-TZ3P96C5KF",
+    measurementId: "https://api.doit.chriscoder.com/api/v1/",
 };
 
 export { firebaseConfig };

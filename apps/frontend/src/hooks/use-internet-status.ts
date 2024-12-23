@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useInternetStatus = (
-    pingUrl = "https://jsonplaceholder.typicode.com/posts/1",
-    interval = 5000,
-) => {
+const useInternetStatus = (pingUrl = "https://google.com/", interval = 5000) => {
     const [isConnected, setIsConnected] = useState<boolean>(true);
 
     useEffect(() => {
@@ -26,14 +23,14 @@ const useInternetStatus = (
         };
 
         // Initial check
-        checkInternetConnection();
+        // checkInternetConnection();
 
         // Set up periodic checks
-        const intervalId = setInterval(checkInternetConnection, interval);
+        // const intervalId = setInterval(checkInternetConnection, interval);
 
         return () => {
             isMounted = false;
-            clearInterval(intervalId);
+            // clearInterval(intervalId);
         };
     }, [pingUrl, interval]);
 

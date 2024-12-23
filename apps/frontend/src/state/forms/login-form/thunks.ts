@@ -33,7 +33,7 @@ const loginAsyncThunk = createAsyncThunk(
 
             return user; // Optionally return the user if needed
         } catch (error: any) {
-            const waitTime = 30000; // 30 seconds cooldown
+            const waitTime = 10000; // 30 seconds cooldown
             const nextAttempt = Date.now() + waitTime;
             dispatch(loginFormActions.setNextAllowedAttemptAction(nextAttempt));
             const friendlyErrorMessage = utils.firebaseErrorMapper.mapFirebaseError(error.code);

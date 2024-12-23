@@ -1,0 +1,10 @@
+# Ignore macOS system files
+.DS_Store
+*.DS_Store
+.DS_Store.*
+
+**/vercel/
+**/vercel.json
+
+**/eas.json
+**/eas/
