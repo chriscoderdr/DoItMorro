@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/common";
 import { getTodoListItemStyles } from "./styles";
 import { useTheme } from "@react-navigation/native";
 import { useIntl } from "react-intl";
+import { isPast, isToday } from "date-fns";
 
 const TodoListItem: React.FC<ITodoListItemProps> = ({
     item,
@@ -28,9 +29,19 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
         }
     };
 
+    // Check if the task is past due, excluding today's tasks
+    const isPastDue =
+        item.dueDate && !item.isCompleted
+            ? isPast(new Date(item.dueDate)) && !isToday(new Date(item.dueDate))
+            : false;
+
     return (
         <TouchableOpacity
-            style={[styles.cardContainer, item.isCompleted && styles.completedCard]}
+            style={[
+                styles.cardContainer,
+                item.isCompleted && styles.completedCard,
+                isPastDue && styles.pastDueCard,
+            ]}
             onPress={() => onItemPress && onItemPress(item)}
         >
             <View style={styles.cardContent}>
@@ -39,7 +50,7 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
                     <Pressable
                         style={({ pressed }) => [
                             styles.checkboxWrapper,
-                            pressed && styles.checkboxPressed, // Optional feedback on press
+                            pressed && styles.checkboxPressed,
                         ]}
                         onPress={handleToggleComplete}
                     >
@@ -50,22 +61,21 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
                     {/* Title */}
                     <ThemedText
                         variant="body"
-                        color={item.isCompleted ? "completedText" : "text"}
+                        color={
+                            isPastDue ? "notification" : item.isCompleted ? "completedText" : "text"
+                        }
                         style={[styles.cardTitle, item.isCompleted && styles.strikethroughText]}
                     >
                         {item.title}
                     </ThemedText>
                 </View>
-                {/* Description */}
-                {item.description && (
-                    <ThemedText
-                        variant="caption"
-                        color="secondaryOnBackground"
-                        style={styles.cardDescription}
-                        numberOfLines={2}
-                        ellipsizeMode="tail"
-                    >
-                        {item.description}
+                {/* Past Due Text */}
+                {isPastDue && (
+                    <ThemedText variant="caption" color="notification" style={styles.pastDueText}>
+                        {intl.formatMessage(
+                            { id: "todoList.pastDueMessage" },
+                            { date: intl.formatDate(item.dueDate) },
+                        )}
                     </ThemedText>
                 )}
                 {/* Due Date */}
@@ -77,33 +87,6 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
                             day: "numeric",
                         })}
                     </ThemedText>
-                )}
-                {/* Completed At */}
-                {item.completedAt && (
-                    <View style={styles.completedAtContainer}>
-                        <Text style={styles.completedAtLabel}>
-                            {intl.formatMessage({ id: "todoList.completedAt" })}
-                        </Text>
-                        <ThemedText
-                            variant="caption"
-                            color="text"
-                            style={styles.completedAtTimestamp}
-                        >
-                            {intl.formatDate(item.completedAt, {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                            })}
-                        </ThemedText>
-                        {/* Completed Badge */}
-                        <View style={styles.completedBadge}>
-                            <Text style={styles.completedBadgeText}>
-                                {intl.formatMessage({ id: "todoList.completed" })}
-                            </Text>
-                        </View>
-                    </View>
                 )}
                 {/* Delete Button */}
                 <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>

@@ -6,9 +6,11 @@ import { ProfileMenu } from "./profile-menu";
 import { useTheme } from "@react-navigation/native";
 import { getProfileScreenStyles } from "./styles";
 import { ConfirmationModal } from "@/components/common/confirmation-modal";
+import { useRouter } from "expo-router";
 
 const ProfileScreen = () => {
     const theme = useTheme();
+    const router = useRouter();
     const styles = getProfileScreenStyles({ theme });
 
     const [loading, setLoading] = useState(true);
@@ -32,13 +34,19 @@ const ProfileScreen = () => {
             onConfirm: async () => {
                 setModalVisible(false);
                 await firebaseService.auth.signOut();
+                router.navigate("/login");
             },
         });
         setModalVisible(true);
     };
 
+    const handleDeleteMe = () => {
+        router.push("/delete-me");
+    };
+
     const menuOptions = [
         { id: "3", label: "Logout", icon: "log-out-outline", action: handleLogout },
+        { id: "4", label: "Delete your account", icon: "", action: handleDeleteMe },
     ];
 
     const combinedOptions = [

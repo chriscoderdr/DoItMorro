@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { Theme } from "@react-navigation/native";
 
 interface TodoListStylesParams {
@@ -22,9 +22,10 @@ export const getTodoListStyles = ({ theme }: TodoListStylesParams) =>
         container: {
             flex: 1,
             backgroundColor: theme.colors.background,
+            position: "relative",
         },
         listContent: {
-            paddingBottom: theme.spacing.large * 8,
+            paddingBottom: theme.spacing.large * 2,
         },
         sectionHeader: {
             fontSize: 18,
@@ -48,24 +49,18 @@ export const getTodoListStyles = ({ theme }: TodoListStylesParams) =>
             color: theme.colors.secondaryOnBackground,
             textAlign: "center",
         },
-        floatingButton: {
-            position: "absolute",
-            bottom: theme.spacing.large * 5,
-            right: theme.spacing.large,
-            backgroundColor: theme.colors.primary,
-            width: 64,
-            height: 64,
-            borderRadius: 32,
-            justifyContent: "center",
-            alignItems: "center",
+        pastDueTask: {
+            backgroundColor: theme.colors.notification, // Highlight with a "past due" color
+            padding: theme.spacing.medium,
+            borderRadius: theme.roundness,
+            marginVertical: theme.spacing.small,
             shadowColor: "#000",
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            shadowRadius: 8,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            elevation: 3,
         },
-        floatingButtonText: {
-            fontSize: 32,
+        pastDueText: {
             color: theme.colors.onPrimary,
-            fontWeight: "bold",
         },
     });

@@ -38,6 +38,32 @@ const getSignUpFormStyles = ({ theme }: SignUpFormStylesParams) =>
             marginTop: theme.spacing.medium,
             alignItems: "center",
         },
+        privacyContainer: {
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: theme.spacing.medium,
+            marginBottom: theme.spacing.large,
+        },
+        checkbox: {
+            width: 20,
+            height: 20,
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: theme.spacing.small,
+        },
+        checkboxInner: {
+            width: 12,
+            height: 12,
+            borderRadius: 2,
+            backgroundColor: "transparent",
+        },
+        privacyText: {
+            fontSize: 14,
+            textDecorationLine: "underline",
+        },
     });
 
 export { getSignUpFormStyles };

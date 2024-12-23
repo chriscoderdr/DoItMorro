@@ -103,5 +103,8 @@
     "form.displayName.placeholder": "Tu apodo bacano",
     "form.displayName.label": "Apodo",
     "signup.action.goToLogin.label": "¿Ya tienes una cuenta?",
-    "signup.action.goToLogin.button": "¡Entra aquí, tigre!"
+    "signup.action.goToLogin.button": "¡Entra aquí, tigre!",
+    "todoList.pastDueTitle": "Vencido – ¡Ponte las pilas, tigre!",
+    "todoList.pastDueMessage": "Manín, esta tarea ta’ vencida desde {date}. ¡Arranca a resolver eso ya!",
+    "todoList.pastDue": "Esta tarea está atrasada desde {date}. ¡Ponte pa’ lo tuyo, manín!"
 }

@@ -35,6 +35,8 @@ const AppNavigator = () => {
                         }),
                     }}
                 />
+                <Stack.Screen name="privacy" />
+                <Stack.Screen name="delete-me" />
             </Stack>
             <StatusBar style="auto" />
         </>

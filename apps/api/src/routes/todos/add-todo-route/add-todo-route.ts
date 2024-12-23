@@ -3,7 +3,8 @@ import { AddTodoRequestBody } from "../types";
 import { validators } from "@/utils/validators";
 import { Todo } from "@/database/models/todo";
 import { authMiddleware } from "@/middlewares";
-import { startOfDay, isValid, parseISO } from "date-fns";
+import { parseISO, isValid, startOfDay } from "date-fns";
+import { toDate } from "date-fns-tz";
 
 const addTodoRouter = new Router();
 
@@ -14,8 +15,12 @@ addTodoRouter.post(
     async (ctx) => {
         const { title, description, dueDate: dueDateRaw } = ctx.request.body as AddTodoRequestBody;
 
-        // Parse and normalize dueDate to the server's timezone
+        // Parse and normalize dueDate
         const dueDate = dueDateRaw ? parseISO(dueDateRaw) : undefined;
+
+        // If a dueDate is provided, convert it to the user's timezone for validation
+        const userTimeZone = dueDateRaw && dueDate ? "UTC" : undefined; // Replace "UTC" with the actual timezone if needed
+        const normalizedDueDate = dueDate ? toDate(dueDate, { timeZone: userTimeZone }) : undefined;
 
         // Validate fields
         const validationResult = validators.validateFields([
@@ -31,15 +36,19 @@ addTodoRouter.post(
             },
             {
                 name: "dueDate",
-                value: dueDate,
+                value: normalizedDueDate,
                 isOptional: true,
                 customValidator: () => {
-                    if (dueDate && !isValid(dueDate)) {
+                    if (normalizedDueDate && !isValid(normalizedDueDate)) {
                         return "Invalid date format";
                     }
 
-                    // Allow tasks for today or in the future
-                    if (dueDate && dueDate < startOfDay(new Date())) {
+                    // Allow tasks for today or in the future in the user's timezone
+                    const nowInUserTimeZone = userTimeZone
+                        ? toDate(new Date(), { timeZone: userTimeZone })
+                        : new Date();
+
+                    if (normalizedDueDate && normalizedDueDate < startOfDay(nowInUserTimeZone)) {
                         return "Due date cannot be in the past";
                     }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Keyboard, View } from "react-native";
+import { Keyboard, View, TouchableOpacity, Alert } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ThemedText, RoundedButton } from "@/components/common";
 import { InputTextField } from "@/components";
@@ -12,8 +12,10 @@ import { RootState } from "@/state/store/root-reducer";
 import { signUpFormActions } from "@/state/forms/sign-up-form/actions";
 import { signUpAsyncThunk } from "@/state/forms/sign-up-form/thunks";
 import { getSignUpFormStyles } from "./styles";
+import { useRouter } from "expo-router";
 
 const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const {
         email,
@@ -33,6 +35,7 @@ const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => 
     const [countdown, setCountdown] = useState<number>(
         Math.max(0, Math.ceil((nextAllowedAttempt - Date.now()) / 1000)),
     );
+    const [privacyChecked, setPrivacyChecked] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -43,7 +46,16 @@ const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => 
         return () => clearInterval(interval);
     }, [nextAllowedAttempt]);
 
-    const isDisabled = isLoading || countdown > 0;
+    const isFormValid =
+        !emailError &&
+        !passwordError &&
+        !displayNameError &&
+        email &&
+        password &&
+        displayName &&
+        privacyChecked;
+
+    const isDisabled = isLoading || countdown > 0 || !isFormValid;
 
     const handleEmailChange = (text: string) => {
         dispatch(signUpFormActions.setEmailAction(text));
@@ -58,13 +70,23 @@ const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => 
     };
 
     const handleSignUp = async () => {
-        if (!emailError && !passwordError && !displayNameError) {
+        if (isFormValid) {
             dispatch(signUpAsyncThunk({ email, password, displayName }));
+        } else {
+            Alert.alert(
+                "Form Error",
+                "Please fill in all required fields and accept the Privacy Policy.",
+            );
         }
     };
 
     const handleSubmitEditing = () => {
         Keyboard.dismiss();
+    };
+
+    const handlePrivacyPolicyPress = () => {
+        // Navigate to the Privacy Policy page
+        router.push("/privacy");
     };
 
     const getButtonText = () => {
@@ -113,6 +135,27 @@ const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => 
                         onSubmitEditing={handleSubmitEditing}
                     />
                 </View>
+
+                {/* Privacy Policy Checkbox */}
+                <View style={styles.privacyContainer}>
+                    <TouchableOpacity
+                        onPress={() => setPrivacyChecked(!privacyChecked)}
+                        style={styles.checkbox}
+                    >
+                        <View
+                            style={[
+                                styles.checkboxInner,
+                                privacyChecked && { backgroundColor: theme.colors.primary },
+                            ]}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handlePrivacyPolicyPress}>
+                        <ThemedText style={styles.privacyText} variant="body" color="primary">
+                            I agree to the Privacy Policy
+                        </ThemedText>
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         disabled={isDisabled}
@@ -122,7 +165,7 @@ const SignUpForm: React.FC<{ onGoToLogin?: () => void }> = ({ onGoToLogin }) => 
                     />
                     {error && (
                         <ThemedText variant="caption" color="notification" align="center">
-                            {error}
+                            <FormattedMessage id={error} />
                         </ThemedText>
                     )}
                     {onGoToLogin && (

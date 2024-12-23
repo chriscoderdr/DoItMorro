@@ -105,5 +105,8 @@
     "form.displayName.placeholder": "Enter your name",
     "form.displayName.label": "Name",
     "signup.action.goToLogin.label": "Already have an account?",
-    "signup.action.goToLogin.button": "Log In Now"
+    "signup.action.goToLogin.button": "Log In Now",
+    "todoList.pastDueTitle": "Past Due – Catch Up!",
+    "todoList.pastDueMessage": "This task was due on {date}. Let's get it done!",
+    "todoList.pastDue": "Past Due"
 }

@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, SectionList } from "react-native";
-import { ITodoListProps } from "./props";
+import { View, Text, SectionList } from "react-native";
+import { ITodoItem, ITodoListProps } from "./props";
 import { getTodoListStyles } from "./styles";
 import { useTheme } from "@react-navigation/native";
 import { useIntl } from "react-intl";
 import { TodoListItem } from "./todo-list-item";
 import * as Localization from "expo-localization";
-import { parseISO, isSameDay } from "date-fns";
+import { parseISO, isBefore, isSameDay } from "date-fns";
 import { toDate } from "date-fns-tz";
 
 const TodoList: React.FC<ITodoListProps> = ({
@@ -27,18 +27,27 @@ const TodoList: React.FC<ITodoListProps> = ({
     const now = new Date();
     const today = toDate(now, { timeZone: userTimezone });
 
-    // Filter tasks for today
-    const todayTasks = todos?.filter((todo) => {
-        if (!todo.dueDate) return false; // No dueDate, not a today task
-        const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
-        return isSameDay(today, dueDateInUserTimezone);
-    });
+    const pastDueTasks: ITodoItem[] = [];
+    const todayTasks: ITodoItem[] = [];
+    const upcomingTasks: ITodoItem[] = [];
 
-    // Filter tasks for upcoming (include tasks without a dueDate)
-    const upcomingTasks = todos?.filter((todo) => {
-        if (!todo.dueDate) return true; // No dueDate, include in upcoming
-        const dueDateInUserTimezone = toDate(parseISO(todo.dueDate), { timeZone: userTimezone });
-        return !todayTasks.some((t) => t.id === todo.id); // Explicitly exclude today's tasks
+    todos?.forEach((todo) => {
+        const dueDateInUserTimezone = todo.dueDate
+            ? toDate(parseISO(todo.dueDate), { timeZone: userTimezone })
+            : null;
+
+        if (dueDateInUserTimezone) {
+            if (
+                isBefore(dueDateInUserTimezone, today) &&
+                !isSameDay(today, dueDateInUserTimezone)
+            ) {
+                pastDueTasks.push(todo);
+            } else if (isSameDay(today, dueDateInUserTimezone)) {
+                todayTasks.push(todo);
+            } else {
+                upcomingTasks.push(todo);
+            }
+        }
     });
 
     // Prepare sections
@@ -48,6 +57,14 @@ const TodoList: React.FC<ITodoListProps> = ({
                   {
                       title: intl.formatMessage({ id: "todoList.todayTitle" }),
                       data: todayTasks,
+                  },
+              ]
+            : []),
+        ...(pastDueTasks.length
+            ? [
+                  {
+                      title: intl.formatMessage({ id: "todoList.pastDueTitle" }),
+                      data: pastDueTasks,
                   },
               ]
             : []),
@@ -87,14 +104,6 @@ const TodoList: React.FC<ITodoListProps> = ({
                     </View>
                 }
             />
-            {/* Floating Add Button */}
-            <TouchableOpacity
-                style={styles.floatingButton}
-                onPress={onAddPress}
-                testID="add-todo-button"
-            >
-                <Text style={styles.floatingButtonText}>+</Text>
-            </TouchableOpacity>
         </View>
     );
 };

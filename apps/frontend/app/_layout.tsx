@@ -12,18 +12,25 @@ import { DoItMorroTheme } from "@/theming";
 import { IntlProvider } from "react-intl";
 import enMessages from "@/i18n/en.json";
 import esMessages from "@/i18n/es.json";
-import { firebaseAuthStateListener, firebaseService } from "@/services/firebase";
 import { AppNavigator } from "@/navigation";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LoadingScreen } from "@/components/screens";
+import { EvilIcons, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { usePathname } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
+        ...Ionicons.font,
+        ...MaterialIcons.font,
+        ...EvilIcons.font,
         SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        Roboto_400Regular,
+        Roboto_700Bold,
     });
 
     const [locale, setLocale] = useState<string>("en");
@@ -51,7 +58,6 @@ export default function RootLayout() {
 
             setAllLoaded(true);
             SplashScreen.hideAsync();
-            firebaseService.auth.onAuthStateChanged(firebaseAuthStateListener);
         };
 
         loadResources();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, RefreshControl } from "react-native";
+import { ScrollView, RefreshControl, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { TodoList } from "@/components/lists/todo-list";
 import {
     useGetTodosQuery,
@@ -99,54 +99,65 @@ const TodoListContent: React.FC = () => {
     };
 
     return (
-        <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            refreshControl={
-                <RefreshControl
-                    refreshing={isLoading || isFetching}
-                    onRefresh={handleRetry}
-                    tintColor={theme.colors.primary}
-                />
-            }
-        >
-            <ThemedText
-                variant="title"
-                color="text"
-                style={{
-                    fontSize: theme.fonts.sizes.large.fontSize,
-                    fontFamily: theme.fonts.bold.fontFamily,
-                    padding: theme.spacing.medium,
-                }}
+        <>
+            <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={isLoading || isFetching}
+                        onRefresh={handleRetry}
+                        tintColor={theme.colors.primary}
+                    />
+                }
             >
-                <FormattedMessage id="todoList.title" />
-            </ThemedText>
-            <TodoList
-                todos={todos as ITodoItem[]}
-                onItemPress={handleTodoPress}
-                onAddPress={handleAddPress}
-                onDeleteItem={handleOnDeleteItem}
-                onComplete={handleOnComplete}
-            />
-            <ConfirmationModal
-                visible={isModalVisible}
-                title={intl.formatMessage({ id: "todoList.delete.title" })}
-                message={intl.formatMessage(
-                    { id: "todoList.delete.message" },
-                    { title: selectedTodo?.title },
-                )}
-                confirmText={intl.formatMessage({ id: "todoList.delete.confirmText" })}
-                cancelText={intl.formatMessage({ id: "todoList.delete.cancelText" })}
-                onConfirm={handleConfirmDelete}
-                onCancel={handleCancelDelete}
-            />
-            <ConfirmationModal
-                visible={errorModalVisible}
-                title={intl.formatMessage({ id: "todoList.error.title" })}
-                message={errorMessage}
-                confirmText={intl.formatMessage({ id: "todoList.error.confirmText" })}
-                onConfirm={handleAcknowledgeError}
-            />
-        </ScrollView>
+                <ThemedText
+                    variant="title"
+                    color="text"
+                    style={{
+                        fontSize: theme.fonts.sizes.large.fontSize,
+                        fontFamily: theme.fonts.bold.fontFamily,
+                        padding: theme.spacing.medium,
+                    }}
+                >
+                    <FormattedMessage id="todoList.title" />
+                </ThemedText>
+                <TodoList
+                    todos={todos as ITodoItem[]}
+                    onItemPress={handleTodoPress}
+                    onAddPress={handleAddPress}
+                    onDeleteItem={handleOnDeleteItem}
+                    onComplete={handleOnComplete}
+                />
+                <ConfirmationModal
+                    visible={isModalVisible}
+                    title={intl.formatMessage({ id: "todoList.delete.title" })}
+                    message={intl.formatMessage(
+                        { id: "todoList.delete.message" },
+                        { title: selectedTodo?.title },
+                    )}
+                    confirmText={intl.formatMessage({ id: "todoList.delete.confirmText" })}
+                    cancelText={intl.formatMessage({ id: "todoList.delete.cancelText" })}
+                    onConfirm={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+                <ConfirmationModal
+                    visible={errorModalVisible}
+                    title={intl.formatMessage({ id: "todoList.error.title" })}
+                    message={errorMessage}
+                    confirmText={intl.formatMessage({ id: "todoList.error.confirmText" })}
+                    onConfirm={handleAcknowledgeError}
+                />
+            </ScrollView>
+            <TouchableOpacity
+                style={[styles.floatingButton, { backgroundColor: theme.colors.primary }]}
+                onPress={handleAddPress}
+                testID="add-todo-button"
+            >
+                <Text style={[styles.floatingButtonText, { color: theme.colors.onPrimary }]}>
+                    +
+                </Text>
+            </TouchableOpacity>
+        </>
     );
 };
 
@@ -159,3 +170,30 @@ export const TodoListScreen: React.FC = () => {
 
     return <EnhancedTodoListScreen isLoading={isLoading} isError={isError} refetch={refetch} />;
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        position: "relative",
+    },
+    floatingButton: {
+        position: "absolute",
+        bottom: 32,
+        right: 24,
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: "center",
+        alignItems: "center",
+        elevation: 6, // Android shadow
+        shadowColor: "#000", // iOS shadow
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        zIndex: 10, // Keep it on top
+    },
+    floatingButtonText: {
+        fontSize: 32,
+        fontWeight: "bold",
+    },
+});

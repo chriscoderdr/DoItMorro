@@ -1,6 +1,6 @@
 import { RootState } from "@/state/store/root-reducer";
 import { Redirect } from "expo-router";
-import { Image, ImageBackground, View } from "react-native";
+import { Image, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { LoadingIndicator } from "@/components/common/loading-indicator";

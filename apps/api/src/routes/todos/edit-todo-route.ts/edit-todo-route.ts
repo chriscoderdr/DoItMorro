@@ -3,7 +3,8 @@ import { AddTodoRequestBody } from "../types";
 import { validators } from "@/utils/validators";
 import { Todo } from "@/database/models/todo";
 import { authMiddleware } from "@/middlewares";
-import { startOfDay, isValid, parseISO } from "date-fns";
+import { parseISO, isValid, startOfDay } from "date-fns";
+import { toDate } from "date-fns-tz";
 
 const editTodoRouter = new Router();
 
@@ -17,8 +18,10 @@ editTodoRouter.post("/:id/update", authMiddleware, async (ctx) => {
         dueDate: dueDateRaw,
     } = ctx.request.body as Partial<AddTodoRequestBody>;
 
-    // Parse and normalize dueDate to a Date object
+    // Parse and normalize dueDate to the user's timezone
+    const userTimeZone = dueDateRaw ? "UTC" : undefined; // Replace with actual user timezone if available
     const dueDate = dueDateRaw ? parseISO(dueDateRaw) : undefined;
+    const normalizedDueDate = dueDate ? toDate(dueDate, { timeZone: userTimeZone }) : undefined;
 
     // Validate fields using validators
     const validationResult = validators.validateFields([
@@ -34,15 +37,19 @@ editTodoRouter.post("/:id/update", authMiddleware, async (ctx) => {
         },
         {
             name: "dueDate",
-            value: dueDate,
+            value: normalizedDueDate,
             isOptional: true, // `dueDate` is optional in updates
             customValidator: () => {
-                if (dueDate && !isValid(dueDate)) {
+                if (normalizedDueDate && !isValid(normalizedDueDate)) {
                     return "Invalid date format";
                 }
 
-                // Allow tasks for today or in the future
-                if (dueDate && dueDate < startOfDay(new Date())) {
+                // Allow tasks for today or in the future in the user's timezone
+                const nowInUserTimeZone = userTimeZone
+                    ? toDate(new Date(), { timeZone: userTimeZone })
+                    : new Date();
+
+                if (normalizedDueDate && normalizedDueDate < startOfDay(nowInUserTimeZone)) {
                     return "Due date cannot be in the past";
                 }
 
@@ -60,7 +67,7 @@ editTodoRouter.post("/:id/update", authMiddleware, async (ctx) => {
     }
 
     // Ensure at least one field is provided for update
-    if (!title && !description && !dueDate) {
+    if (!title && !description && !normalizedDueDate) {
         ctx.status = 400;
         ctx.body = {
             error: "At least one field (title, description, or dueDate) must be provided.",
@@ -88,7 +95,7 @@ editTodoRouter.post("/:id/update", authMiddleware, async (ctx) => {
             {};
         if (title) updatedFields.title = title;
         if (description) updatedFields.description = description;
-        if (dueDate) updatedFields.dueDate = dueDate;
+        if (normalizedDueDate) updatedFields.dueDate = normalizedDueDate;
 
         // Update the todo
         await existingTodo.update(updatedFields);
